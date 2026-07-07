@@ -1,8 +1,8 @@
-# Horus-NFE
+# Zakhor Memory Architecture
 
 **Geometric, self-similar neural inference hardware/software co-design.**
 
-This repository is the founding research codebase for Horus-NFE, an original
+This repository is the founding research codebase for Zakhor Memory Architecture, an original
 architectural research project led by **Sotirios Chortogiannos**. Read
 [`MANIFESTO.md`](MANIFESTO.md) for the project's philosophy, objectives, and
 intellectual property record.
@@ -23,7 +23,7 @@ mapping on coverage quality and phi-quantized weight reconstruction.
 ## Repository layout
 
 ```
-horus-nfe/
+zakhor-memory-architecture/
 ├── MANIFESTO.md          # Founding record and project mandate
 ├── NOTICE                # Proprietary / stewardship notice
 ├── core/                 # Algorithmic prototypes
@@ -35,7 +35,7 @@ horus-nfe/
 ## Core idea
 
 Conventional inference engines anchor computation to a linear grid: integer
-indices, fixed strides, uniform resolution. Horus-NFE proposes an **anchorless,
+indices, fixed strides, uniform resolution. Zakhor Memory Architecture proposes an **anchorless,
 φ-based framework** where data is navigated by **self-similar proportion**
 (golden-ratio subdivision) rather than offset from an origin. Components
 coordinate through a geometric **handshake** — matching φ-scaled structure —

@@ -1,7 +1,7 @@
 # Architecture Note 00 — Anchorless Addressing
 
 <!--
- HORUS-NFE  |  PROPRIETARY RESEARCH — IN DEVELOPMENT
+ ZAKHOR MEMORY ARCHITECTURE  |  PROPRIETARY RESEARCH — IN DEVELOPMENT
  Original architectural research project.
  Steward / Founder: Sotirios Chortogiannos.
  Inception: 2026-07-07.  See ../NOTICE.
@@ -9,7 +9,7 @@
 
 **Status:** Draft v0.1 · **Author:** Sotirios Chortogiannos · **Date:** 2026-07-07
 
-This is the first formal design note for Horus-NFE. It states the problem with
+This is the first formal design note for Zakhor Memory Architecture. It states the problem with
 linear grid addressing, defines the anchorless φ-addressing scheme precisely,
 and derives the properties the `/core` prototype (`phi_theory.py`) exploits.
 
@@ -40,7 +40,7 @@ We call the sum of these the **anchor tax**.
 
 ## 2. The proposal: navigation by proportion
 
-Horus-NFE replaces the affine map with a **self-similar recurrence** built on
+Zakhor Memory Architecture replaces the affine map with a **self-similar recurrence** built on
 the golden ratio φ = (1+√5)/2 and its conjugate 1/φ = φ − 1 ≈ 0.618:
 
 ```

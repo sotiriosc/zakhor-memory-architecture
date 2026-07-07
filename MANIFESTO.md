@@ -1,4 +1,4 @@
-# The Horus-NFE Manifesto
+# The Zakhor Memory Architecture Manifesto
 
 **An Original Architectural Research Project**
 **Founder & Principal Steward: Sotirios Chortogiannos**
@@ -8,9 +8,9 @@
 
 ## 0. Declaration of Origin
 
-This document is the founding record of **Horus-NFE** — a research program to
-architect a new class of *geometric, self-similar neural inference
-hardware/software*. It is an **original architectural research project**
+This document is the founding record of **Zakhor Memory Architecture** — a
+research program to architect a new class of *geometric, self-similar neural
+inference hardware/software*. It is an **original architectural research project**
 conceived, directed, and stewarded by **Sotirios Chortogiannos**.
 
 The ideas set forth here — most centrally the **anchorless, $\phi$-based
@@ -34,8 +34,8 @@ anchoring is the hidden tax on nearly all inference: it forces uniform
 resolution, uniform spacing, and uniform cost across a representation whose
 information content is anything but uniform.
 
-Horus-NFE rejects the anchor. Instead of a grid, we propose a **self-similar
-coordinate system** governed by the golden ratio,
+Zakhor Memory Architecture rejects the anchor. Instead of a grid, we propose a
+**self-similar coordinate system** governed by the golden ratio,
 
 $$\phi = \frac{1 + \sqrt{5}}{2} \approx 1.6180339887\ldots$$
 
@@ -98,7 +98,7 @@ a **hardware/software co-design**. Its guiding requirements:
 ## 5. Repository Structure
 
 ```
-horus-nfe/
+zakhor-memory-architecture/
 ├── MANIFESTO.md          # This document — the founding IP record
 ├── README.md             # Practical entry point
 ├── NOTICE                # Proprietary / stewardship notice

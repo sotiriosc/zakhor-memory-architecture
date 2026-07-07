@@ -1,4 +1,4 @@
-Horus-NFE :: Experiment 001 — regime sweep
+Zakhor Memory Architecture :: Experiment 001 — regime sweep
 ========================================================
 [exp001a] Quantization MSE vs. weight spread (16 levels, 8192 samples, lower is better)
    std |   linear MSE |      phi MSE | winner

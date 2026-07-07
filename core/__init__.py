@@ -1,7 +1,7 @@
-"""Horus-NFE core algorithmic prototypes.
+"""Zakhor Memory Architecture core algorithmic prototypes.
 
 ================================================================================
- HORUS-NFE  |  PROPRIETARY RESEARCH — IN DEVELOPMENT
+ ZAKHOR MEMORY ARCHITECTURE  |  PROPRIETARY RESEARCH — IN DEVELOPMENT
  Original architectural research project.
  Steward / Founder: Sotirios Chortogiannos.
  Inception: 2026-07-07.

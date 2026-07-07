@@ -1,7 +1,7 @@
 """phi_theory.py — The Phi-Handshake: self-similar, anchorless weight mapping.
 
 ================================================================================
- HORUS-NFE  |  PROPRIETARY RESEARCH — IN DEVELOPMENT
+ ZAKHOR MEMORY ARCHITECTURE  |  PROPRIETARY RESEARCH — IN DEVELOPMENT
  Original architectural research project.
  Steward / Founder: Sotirios Chortogiannos.
  Inception: 2026-07-07.
@@ -13,7 +13,8 @@
 
 Purpose
 -------
-This is the *foundational* prototype for Horus-NFE. It demonstrates, in plain,
+This is the *foundational* prototype for Zakhor Memory Architecture. It
+demonstrates, in plain,
 dependency-free Python, the core innovation of the project:
 
     A "Phi-quantized" weight distribution in which data is navigated by
@@ -58,7 +59,7 @@ GOLDEN_ANGLE_TURNS: float = PHI_INV * PHI_INV  # == 2 - phi == 0.381966...
 # 1. The addressing protocols — the crux of the comparison
 # --------------------------------------------------------------------------- #
 #
-# The whole thesis of Horus-NFE is that *how you address memory* is a design
+# The whole thesis of Zakhor Memory Architecture is that *how you address memory* is a design
 # choice with real efficiency consequences. We formalize two addressing schemes
 # behind one tiny interface so they can be benchmarked apples-to-apples.
 
@@ -360,7 +361,7 @@ def demo_benchmark(n: int = 256) -> None:
     phi_avg = avg_prefix_discrepancy(lambda k: phi_points[:k])
     grid_avg = avg_prefix_discrepancy(lambda k: _prefix_grid(n, k))
 
-    print(f"Horus-NFE :: mean prefix discrepancy over k=1..{n} (lower is better)")
+    print(f"Zakhor Memory Architecture :: mean prefix discrepancy over k=1..{n} (lower is better)")
     print("  (extensibility test: can the map stop at any budget?)")
     print("-" * 60)
     print(f"  linear-grid      mean prefix discrepancy = {grid_avg:.6f}")

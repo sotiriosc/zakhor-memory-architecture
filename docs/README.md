@@ -1,12 +1,13 @@
 # Architectural Theory
 
 <!--
- HORUS-NFE  |  PROPRIETARY RESEARCH — IN DEVELOPMENT
+ ZAKHOR MEMORY ARCHITECTURE  |  PROPRIETARY RESEARCH — IN DEVELOPMENT
  Steward / Founder: Sotirios Chortogiannos.  See ../NOTICE.
 -->
 
-This directory holds the formal architectural theory for Horus-NFE: design
-documents, derivations, and co-design notes for the geometric NFE engine.
+This directory holds the formal architectural theory for Zakhor Memory
+Architecture: design documents, derivations, and co-design notes for the
+geometric neural inference engine.
 
 ## Planned topics
 

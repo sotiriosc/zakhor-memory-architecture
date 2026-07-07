@@ -1,7 +1,7 @@
 """exp001_regime_sweep.py — Where does the phi-codebook win, and where does it lose?
 
 ================================================================================
- HORUS-NFE  |  PROPRIETARY RESEARCH — IN DEVELOPMENT
+ ZAKHOR MEMORY ARCHITECTURE  |  PROPRIETARY RESEARCH — IN DEVELOPMENT
  Original architectural research project.
  Steward / Founder: Sotirios Chortogiannos.
  Inception: 2026-07-07.  See ../NOTICE.
@@ -90,7 +90,7 @@ def sweep_addressing() -> None:
 
 
 if __name__ == "__main__":
-    print("Horus-NFE :: Experiment 001 — regime sweep")
+    print("Zakhor Memory Architecture :: Experiment 001 — regime sweep")
     print("=" * 56)
     sweep_quantization()
     sweep_addressing()

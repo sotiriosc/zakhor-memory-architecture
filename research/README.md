@@ -1,12 +1,12 @@
 # Research & Experiments
 
 <!--
- HORUS-NFE  |  PROPRIETARY RESEARCH — IN DEVELOPMENT
+ ZAKHOR MEMORY ARCHITECTURE  |  PROPRIETARY RESEARCH — IN DEVELOPMENT
  Steward / Founder: Sotirios Chortogiannos.  See ../NOTICE.
 -->
 
 This directory is for experiments, benchmark results, and research notes that
-validate (or falsify) claims about the Horus-NFE geometric mapping.
+validate (or falsify) claims about the Zakhor Memory Architecture geometric mapping.
 
 ## Benchmark commitment
 

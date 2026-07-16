@@ -299,6 +299,14 @@ activation-level fault suppression can deliver, and 0.9227 approaches
 it from below (gap 0.9227 − 0.3910 = 0.532 recovered, against 0.609
 total FP64-lost).
 
+Stranger-clipping is activation-level fault suppression in both senses:
+it restores the honest neighbors' encoding AND bounds the corrupted
+value's propagated magnitude — which is why the keeper pipeline exceeds
+unquantized FP64 under this fault model. What it is not is input-level
+corruption correction: faults that alter the input's semantics before the
+network lie beyond any scale controller's jurisdiction, and the 7.23%
+model-error share measures exactly that territory.
+
 **The honest frontier, updated.** Of the 7.73% KEEPER errors on DENSE,
 7.23% are model errors the keeper cannot be asked to fix — FP64 fails
 them too. The 0.5% corruption-attributable residue is the honest

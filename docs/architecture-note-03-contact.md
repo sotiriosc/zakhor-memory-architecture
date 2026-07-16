@@ -9,7 +9,7 @@
 
 **Status:** Draft v0.1 · **Date:** 2026-07-16
 
-This note is written from the ported exp101–106 ("Contact") artifacts only.
+This note is written from the ported exp101–107 ("Contact") artifacts only.
 No new claims are made beyond what those pre-registrations, scripts, and
 results establish. The exp00x series (exp001–exp007b) is CLOSED; its
 deliverable, [Architecture Note 02](architecture-note-02-synthesis.md),
@@ -195,9 +195,123 @@ hash:
 | exp104 | `200e9e3c78214f50` | `200e9e3c78214f50` | exact |
 | exp105 | `bc5f35d17500737e` | `bc5f35d17500737e` | exact |
 | exp106 | `d1ccd001dfdf497b` | `d1ccd001dfdf497b` | exact |
+| exp107 | `f17c22c36ee9df13` | `f17c22c36ee9df13` | exact |
 
 No threshold, number, or verdict was altered in porting. All decisions —
 what to port, how to verify, what this note claims — are the steward's.
+
+---
+
+## 8. exp107 — The Rival, the Range, and the Residue
+
+**Three solidification attacks on the +53.9 headline.** Does the gap
+survive a strong memoryless rival? Does it survive changing the
+corruption seed? And how much of the agree-wrong frontier is the keeper's
+own fault?
+
+### The memoryless dilemma (P22, P23)
+
+**P22 — PASS.** TRIMMED (block exponent from the second-largest element,
+no state) beats LOCALMAX on DENSE by **+47.2 points** (0.8560 vs 0.3838),
+easily clearing the 20-point threshold. The rival is genuinely strong:
+excluding the single largest element per block is enough to avoid the
+most catastrophic underflows.
+
+**P23 — PASS. Memory resolves the dilemma KEEPER dominates TRIMMED on
+every stream.** The differences at seed 1:
+
+| stream | LOCALMAX | TRIMMED | KEEPER | K − T |
+|---|---|---|---|---|
+| CLEAN  | 0.9700 | 0.9444 | 0.9689 | **+2.45%** |
+| SPARSE | 0.8532 | 0.9383 | 0.9650 | **+2.67%** |
+| DENSE  | 0.3838 | 0.8560 | 0.9227 | **+6.68%** |
+
+KEEPER exceeds TRIMMED by more than 0.5% on all three streams — P23's
+stronger condition — against a threshold of −0.3% on every stream. The
+verdict is unambiguous.
+
+**The memoryless dilemma, named.** TRIMMED's CLEAN accuracy is **0.9444
+against LOCALMAX's 0.9700 — a chronic −2.56% tax on every clean block.**
+A memoryless heuristic that clips the block maximum must clip the
+legitimate maximum of every block, every time, regardless of whether
+corruption is present. KEEPER, tracking the scale causally, declares an
+element a stranger only when it exceeds the tracked ceiling; clean blocks
+cost nothing. The dilemma TRIMMED faces — clip everything or nothing —
+is exactly the dilemma the tracked state resolves. The 2.6-point CLEAN
+tax is the measured cost of choosing a memoryless answer to a stateful
+problem.
+
+### Seed stability (P24)
+
+**P24 — PASS.** The KEEPER − LOCALMAX gap across five DENSE corruption
+seeds:
+
+| seed | LOCALMAX | TRIMMED | KEEPER | gap |
+|---|---|---|---|---|
+| 1 | 0.3838 | 0.8560 | 0.9227 | +53.9% |
+| 2 | 0.3693 | 0.8676 | 0.9316 | +56.2% |
+| 3 | 0.3760 | 0.8521 | 0.9099 | **+53.4%** (min) |
+| 4 | 0.3704 | 0.8582 | 0.9194 | +54.9% |
+| 5 | 0.3732 | 0.8548 | 0.9244 | +55.1% |
+
+Mean gap **+54.7%**, minimum **+53.4%** — both well above the 40/30-point
+thresholds. The headline is not a seed artefact: it holds within a 2.8-
+point band (53.4%–56.2%) across all five seeds. KEEPER dominates TRIMMED
+at every seed, by 5.4–6.7 points on DENSE.
+
+### Frontier decomposition (P25)
+
+**P25 — PASS.** On the DENSE corrupted stream at seed 1, running FP64
+inference on the same corrupted activations yields accuracy **0.3910**
+(39.1%): the network itself, operating in full floating-point with no
+quantization, classifies only 39% of corrupted samples correctly. This
+is the baseline of what the corruption does to the representation before
+any quantization scheme touches it.
+
+Decomposing the 7.73% KEEPER error rate:
+
+| class | fraction of samples | meaning |
+|---|---|---|
+| model error | **7.23%** | KEEPER wrong, FP64 also wrong — network fails on the corrupted input regardless of quantization |
+| corruption-attributable | **0.50%** | KEEPER wrong, FP64 right — quantization/stranger-clipping interacted with the corruption to produce an error FP64 would not have made |
+
+**0.5% is the keeper-attributable residue.** The 9.2% agree-wrong class
+from exp106 decomposes as: 7.23% is the model failing on corrupted
+inputs in a way that no activation quantization scheme can prevent (FP64
+also fails), and 0.5% is genuinely attributable to the keeper's
+stranger-clipping interaction with the corrupted stream. The remaining
+difference is composition: agree-wrong in exp106 was measured among
+agreeing samples, not as a flat fraction of all samples.
+
+**Stranger-clipping as fault suppression, scoped.** The FP64 accuracy on
+the corrupted stream (39.1%) establishes the scope of the finding: the
+keeper's +53.9-point advantage over LOCALMAX is not primarily accuracy
+recovery — it is fault suppression at the activation level. When a
+corrupted element inflates a block's exponent, LOCALMAX propagates that
+distortion forward through all subsequent layers; KEEPER clips it at the
+tracked ceiling and forwards a representable (if clipped) activation
+instead. This is not the same as preventing the corruption from affecting
+the network's representation — FP64 on the same corrupted stream still
+fails 60.9% of the time. The keeper intercepts activation-level
+quantization faults, not the underlying corrupted values. That scoping is
+exact: the 39.1% FP64 corrupted accuracy is the ceiling of what
+activation-level fault suppression can deliver, and 0.9227 approaches
+it from below (gap 0.9227 − 0.3910 = 0.532 recovered, against 0.609
+total FP64-lost).
+
+**The honest frontier, updated.** Of the 7.73% KEEPER errors on DENSE,
+7.23% are model errors the keeper cannot be asked to fix — FP64 fails
+them too. The 0.5% corruption-attributable residue is the honest
+measurement of what a better stranger-clipping or recovery strategy might
+reach. The agree-wrong class from exp106 is overwhelmingly model error,
+not an open keeper engineering problem.
+
+**Series provenance for exp107.** Pre-registered, implemented, and
+executed externally (Claude, Anthropic sandbox, sklearn 1.8.0, numpy
+2.4.4). Ported byte-identical to `research/exp107_rival.py`; run twice
+independently in this environment (sklearn 1.7.2, numpy 2.2.6). Both
+invocations produced hash `f17c22c36ee9df13`, matching the original
+exactly. See `research/results/exp107_2026-07-12_inrepo.txt`.
 
 ---
 

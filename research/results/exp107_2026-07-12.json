@@ -1,0 +1,50 @@
+{
+ "_provenance": {
+  "executed_externally_by": "Claude (Anthropic), external sandbox",
+  "execution_date": "2026-07-12",
+  "environment": "sklearn 1.8.0, numpy 2.4.4",
+  "original_double_run_hash": "f17c22c36ee9df13",
+  "note": "Original artifact data below (all keys except this one) preserved verbatim from docs/exp107_2026-07-12.json. Script ported to research/exp107_rival.py (byte-identical). Independently re-executed in this repository; see research/results/exp107_2026-07-12_inrepo.txt. Note: true_corrupt=0 for all KEEPER entries is a known script artifact — exp107's forward() does not increment stats['true_corrupt']. The stranger counts and regime_events are correct and match exp105/106 exactly at seed 1."
+ },
+ "CLEAN/LOCALMAX": {"acc": 0.9699666295884316},
+ "CLEAN/TRIMMED":  {"acc": 0.9443826473859844},
+ "CLEAN/KEEPER": {
+  "acc": 0.9688542825361512,
+  "strangers": 310,
+  "true_corrupt": 0,
+  "regime_events": [0, 0, 0]
+ },
+ "SPARSE/LOCALMAX": {"acc": 0.8531701890989989},
+ "SPARSE/TRIMMED":  {"acc": 0.9382647385984427},
+ "SPARSE/KEEPER": {
+  "acc": 0.9649610678531702,
+  "strangers": 613,
+  "true_corrupt": 0,
+  "regime_events": [1, 1, 1]
+ },
+ "DENSE/LOCALMAX": {"acc": 0.38375973303670746},
+ "DENSE/TRIMMED":  {"acc": 0.8559510567296996},
+ "DENSE/KEEPER": {
+  "acc": 0.9226918798665183,
+  "strangers": 3204,
+  "true_corrupt": 0,
+  "regime_events": [1, 1, 1]
+ },
+ "DENSE/decomp": {
+  "keeper_wrong": 0.07730812013348165,
+  "fp64_on_corrupted_acc": 0.39098998887652947,
+  "model_error_share": 0.07230255839822025,
+  "corruption_attributable": 0.005005561735261402
+ },
+ "sweep": {
+  "rows": [
+   {"seed": 1, "LOCALMAX": 0.38375973303670746, "TRIMMED": 0.8559510567296996, "KEEPER": 0.9226918798665183, "gap": 0.5389321468298109},
+   {"seed": 2, "LOCALMAX": 0.3692992213570634,  "TRIMMED": 0.8676307007786429, "KEEPER": 0.9315906562847609, "gap": 0.5622914349276975},
+   {"seed": 3, "LOCALMAX": 0.3759733036707453,  "TRIMMED": 0.8520578420467185, "KEEPER": 0.9098998887652948, "gap": 0.5339265850945496},
+   {"seed": 4, "LOCALMAX": 0.3704115684093437,  "TRIMMED": 0.8581757508342603, "KEEPER": 0.9193548387096774, "gap": 0.5489432703003336},
+   {"seed": 5, "LOCALMAX": 0.3731924360400445,  "TRIMMED": 0.8548387096774194, "KEEPER": 0.9243604004449388, "gap": 0.5511679644048944}
+  ],
+  "gap_mean": 0.5470522803114571,
+  "gap_min": 0.5339265850945496
+ }
+}

@@ -1,0 +1,50 @@
+exp107 — Independent In-Repo Reproduction
+================================================================================
+Environment: sklearn 1.7.2, numpy 2.2.6 (this repository, 2026-07-16).
+Original (external sandbox) environment: sklearn 1.8.0, numpy 2.4.4.
+Script: research/exp107_rival.py (byte-identical to staged/external artifact).
+
+Note: the script imports exp105_neighbors (which imports exp101_contact);
+both modules execute module-level code on import and print their own HASH
+and stream lines before exp107's output begins.
+
+Reproduction method: script invoked as a separate process TWICE (in
+addition to the script's own internal double run).
+Cross-invocation hash comparison:
+  invocation 1 internal:  HASH f17c22c36ee9df13 f17c22c36ee9df13 identical: True
+  invocation 2 internal:  HASH f17c22c36ee9df13 f17c22c36ee9df13 identical: True
+  invocation 1 vs invocation 2 (exp107 output lines): IDENTICAL
+
+Own-environment double-run: PASS (bit-identical, as required).
+
+Comparison to original external-sandbox hash:
+  original:  f17c22c36ee9df13
+  in-repo:   f17c22c36ee9df13
+  MATCH: EXACT (bit-identical across environments).
+
+Rider check — exp105/106 audit numbers at seed 1 (must match exactly):
+  CLEAN strangers=310, true_corrupt=0 (script artifact), reg=[0,0,0]  MATCH
+  SPARSE strangers=613, true_corrupt=0 (script artifact), reg=[1,1,1]  MATCH
+  DENSE strangers=3204, true_corrupt=0 (script artifact), reg=[1,1,1]  MATCH
+  Note: exp107's forward() does not increment stats['true_corrupt'];
+  true_corrupt=0 throughout is expected. Stranger counts match exp105/106.
+
+Headline-number tolerance check (±0.5% absolute required; delta shown):
+  CLEAN/LOCALMAX acc:    0.9700 vs 0.9700  (exact)
+  CLEAN/TRIMMED acc:     0.9444 vs 0.9444  (exact)
+  CLEAN/KEEPER acc:      0.9689 vs 0.9689  (exact)
+  CLEAN K-T gap:         +0.0245 vs +0.0245  (exact; TRIMMED clean tax = -2.56%)
+  SPARSE/TRIMMED acc:    0.9383 vs 0.9383  (exact)
+  SPARSE K-T gap:        +0.0267 vs +0.0267  (exact)
+  DENSE/TRIMMED acc:     0.8560 vs 0.8560  (exact)
+  DENSE/KEEPER acc:      0.9227 vs 0.9227  (exact)
+  DENSE K-T gap:         +0.0667 vs +0.0667  (exact)
+  decomp keeper_wrong:   0.0773 vs 0.0773  (exact)
+  fp64_on_corrupted_acc: 0.3910 vs 0.3910  (exact)
+  model_error_share:     0.0723 vs 0.0723  (exact)
+  corruption_attributable: 0.0050 vs 0.0050  (exact)
+  sweep gap_mean:        +0.5471 vs +0.5471  (exact)
+  sweep gap_min:         +0.5339 vs +0.5339  (exact)
+  sweep seed 3 (min gap): +0.5339 vs +0.5339  (exact)
+
+VERDICT: reproduction PASS. No headline number moved. Nothing adjusted.

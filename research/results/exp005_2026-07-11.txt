@@ -1,0 +1,243 @@
+Zakhor Memory Architecture :: Experiment 005 — Logged, Not Remembered — and Kept Alive
+================================================================================================
+  Pre-registered 2026-07-11. H0-id retired per two-strike rule (exp004). See exp005-pre-reg.md.
+  K=3  f̂=0.7  recovery_settle=7  H6_budget=11
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Distribution: peaked(std=0.15)
+  Calibration (CAL_BLOCKS=256): G=1.0  noise_threshold=0.7507 (p95|delta|, no 4× — was 3.0027 in exp004)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+§4 S1 STATIONARY (peaked(std=0.15))
+--------------------------------------------------------------------------------------
+  competitor                            MSE    underflow     overflow
+  PHI-ZAKHOR                     4.4145e-04   4.6104e-02   1.0456e-02
+  PHI-ZAKHOR-KEEP-G2             4.3679e-04   7.4266e-02   0.0000e+00
+  PHI-STATIC                     4.3401e-04   6.5262e-02   2.2125e-04
+  GRID-ZAKHOR                    2.6065e-04   0.0000e+00   1.0456e-02
+  GRID-STATIC                    4.4654e-04   0.0000e+00   2.2125e-04
+  ORACLE-PHI                     3.8741e-04   4.6463e-02   0.0000e+00
+  Regression: PHI-ZAKHOR 4.4145e-04  G2 4.3679e-04 — PASS
+  S1 REGIME events: 0 (expected 0)
+  S1 stranger log: 4 entries
+
+S2 SLOW DRIFT ↑ (peaked(std=0.15))
+--------------------------------------------------------------------------------------
+  competitor                            MSE    underflow     overflow
+  PHI-ZAKHOR                     4.1171e+00   4.2164e-02   1.9146e-02
+  PHI-ZAKHOR-KEEP-G2             3.8384e+00   6.8061e-02   0.0000e+00
+  PHI-STATIC                     1.9241e+02   1.2165e-02   6.5466e-01
+  GRID-ZAKHOR                    2.4164e+00   0.0000e+00   1.9146e-02
+  GRID-STATIC                    1.9241e+02   0.0000e+00   6.5466e-01
+  ORACLE-PHI                     3.4434e+00   4.6597e-02   0.0000e+00
+  S2 REGIME events: 0 (expected 0)
+
+§2 S3 STEP ↑ (+8 shells) (peaked(std=0.15))
+--------------------------------------------------------------------------------------
+  competitor                            MSE    underflow     overflow
+  PHI-ZAKHOR                     1.0999e+00   4.5181e-02   2.7725e-02
+  PHI-ZAKHOR-KEEP-G2             4.7626e-01   7.4625e-02   0.0000e+00
+  PHI-STATIC                     2.2093e+01   3.1399e-02   4.7123e-01
+  GRID-ZAKHOR                    9.0932e-01   0.0000e+00   2.7725e-02
+  GRID-STATIC                    2.2093e+01   0.0000e+00   4.7123e-01
+  ORACLE-PHI                     4.2984e-01   4.7138e-02   0.0000e+00
+  H6 S3↑: REGIME events near step: 1 (want 1)  PHI-ZAKHOR recovery=156  G2 recovery=0  (budget=11) — PASS
+    REGIME: block=2051  1.950→-6.139 shells  Δ=8.089
+
+S3 STEP ↓ (−8 shells) (peaked(std=0.15))
+--------------------------------------------------------------------------------------
+  competitor                            MSE    underflow     overflow
+  PHI-ZAKHOR                     2.2206e-04   5.5031e-02   9.5825e-03
+  PHI-ZAKHOR-KEEP-G2             2.1838e-04   8.6124e-02   0.0000e+00
+  PHI-STATIC                     2.2137e-04   5.3188e-01   1.4114e-04
+  GRID-ZAKHOR                    1.3299e-04   0.0000e+00   9.5825e-03
+  GRID-STATIC                    7.9626e-04   0.0000e+00   1.4114e-04
+  ORACLE-PHI                     1.9314e-04   4.6932e-02   0.0000e+00
+  H6 S3↓: REGIME events: 0 (want 0 — step-DOWN signal is not a stranger)  PHI-ZAKHOR recovery=55  G2 recovery=78  (budget=11) — FALSIFIED
+  Contrast: rebirth T=0 (gated UP) vs T(Δ=8,f≈0.68,α=1/64)≈156 (ungated)
+  H6 overall: FALSIFIED
+
+§1 S4 SPIKES (φ^+10 every 256 blocks) (peaked(std=0.15))
+--------------------------------------------------------------------------------------
+  competitor                            MSE    underflow     overflow
+  PHI-ZAKHOR                     8.6081e-01   6.2111e-02   8.1940e-03
+  PHI-ZAKHOR-KEEP-G2             7.3208e-04   9.1842e-02   0.0000e+00
+  PHI-STATIC                     2.2418e-02   9.9994e-01   0.0000e+00
+  GRID-ZAKHOR                    9.7826e-01   0.0000e+00   8.1940e-03
+  GRID-STATIC                    6.5291e+01   0.0000e+00   0.0000e+00
+  ORACLE-PHI                     4.7449e-04   5.0152e-02   0.0000e+00
+
+  §4 S4a ungated regression: peak_disp=0.1880 (exp003 ref=0.1880) — PASS
+  §1 H5(a) state displacement: peak=0.000000 shells (threshold ≤0.01, analyzed 15 spikes, all_zero=True) — PASS
+  S4 REGIME events: 0 (expected 0 — isolated spikes never reach K=3)
+  §1 H5(b) S4c collateral (normal-block R / S1 R, threshold ≤1.2):
+    PHI-ZAKHOR                   R_normal=1.792  R_s1=1.175  ratio=1.525
+    PHI-ZAKHOR-KEEP-G2           R_normal=1.953  R_s1=1.167  ratio=1.674
+    GRID-ZAKHOR                  R_normal=292.927  R_s1=0.709  ratio=413.027
+  S4b spike fidelity (spike-MSE / normal-MSE):
+    PHI-ZAKHOR                    327450.01×
+    PHI-ZAKHOR-KEEP-G2                 2.04×
+    PHI-STATIC                         1.04×
+    GRID-ZAKHOR                     2181.95×
+    GRID-STATIC                        0.98×
+    ORACLE-PHI                        60.31×
+  §1 H5(c) over-declaration: G2 declared_rate=9.9182e-05 (limit=6.4087e-05) — FALSIFIED
+  H5 overall: FALSIFIED
+
+  §3 Honesty v3 (peaked(std=0.15)) — spike frac: 6.10e-05, H7 silent limit: 1.0e-03
+  competitor                      decl_rate   mid_ret_rate   silent_err
+  PHI-ZAKHOR                     0.0000e+00     0.0000e+00   1.6159e-01
+  PHI-ZAKHOR-KEEP-G2             9.9182e-05     2.8097e-01   1.2376e-01
+  PHI-STATIC                     0.0000e+00     0.0000e+00   9.2580e-01
+  GRID-ZAKHOR                    0.0000e+00     0.0000e+00   2.6659e-01
+  GRID-STATIC                    0.0000e+00     0.0000e+00   9.9994e-01
+  ORACLE-PHI                     0.0000e+00     0.0000e+00   0.0000e+00
+  H7: silent_err=1.2376e-01 (< 1.0e-03) — FALSIFIED
+  PHI-STATIC silent-error: 9.258e-01 (standing contrast: silence is not fidelity)
+
+  Three registers (peaked(std=0.15)):
+    Stranger log: 26 entries.  Mid-return blocks: 1151/4096.  Regime log: 0 entries.
+    First 3 strangers: [(257, -10.000000000000002, 178.4428602354648), (513, -10.000000000000002, 194.42685350296517), (695, 0.9956936121305299, 0.003012458304724186)]
+    Regime events: []
+  H7 on S3↑: silent_err=1.3221e-01 — FALSIFIED  regime=1 events
+  H7 on S3↓: silent_err=1.2860e-01 — FALSIFIED  mid_return_blocks=1095
+  H7 all streams: FALSIFIED
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Distribution: spread(std=0.3)
+  Calibration (CAL_BLOCKS=256): G=1.0  noise_threshold=0.7039 (p95|delta|, no 4× — was 2.8156 in exp004)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+§4 S1 STATIONARY (spread(std=0.3))
+--------------------------------------------------------------------------------------
+  competitor                            MSE    underflow     overflow
+  PHI-ZAKHOR                     1.7323e-03   4.5933e-02   1.0750e-02
+  PHI-ZAKHOR-KEEP-G2             1.7616e-03   7.4024e-02   0.0000e+00
+  PHI-STATIC                     1.7139e-03   5.9399e-02   0.0000e+00
+  GRID-ZAKHOR                    1.0052e-03   0.0000e+00   1.0750e-02
+  GRID-STATIC                    1.4806e-03   0.0000e+00   0.0000e+00
+  ORACLE-PHI                     1.5486e-03   4.6219e-02   0.0000e+00
+  Regression: PHI-ZAKHOR 1.7323e-03  G2 1.7616e-03 — PASS
+  S1 REGIME events: 0 (expected 0)
+  S1 stranger log: 0 entries
+
+S2 SLOW DRIFT ↑ (spread(std=0.3))
+--------------------------------------------------------------------------------------
+  competitor                            MSE    underflow     overflow
+  PHI-ZAKHOR                     1.6060e+01   4.2007e-02   1.9581e-02
+  PHI-ZAKHOR-KEEP-G2             1.5441e+01   6.8115e-02   0.0000e+00
+  PHI-STATIC                     7.7046e+02   1.1314e-02   6.6799e-01
+  GRID-ZAKHOR                    9.2323e+00   0.0000e+00   1.9581e-02
+  GRID-STATIC                    7.7046e+02   0.0000e+00   6.6799e-01
+  ORACLE-PHI                     1.3774e+01   4.6345e-02   0.0000e+00
+  S2 REGIME events: 0 (expected 0)
+
+§2 S3 STEP ↑ (+8 shells) (spread(std=0.3))
+--------------------------------------------------------------------------------------
+  competitor                            MSE    underflow     overflow
+  PHI-ZAKHOR                     4.3587e+00   4.4991e-02   2.8099e-02
+  PHI-ZAKHOR-KEEP-G2             1.9231e+00   7.4463e-02   0.0000e+00
+  PHI-STATIC                     8.8433e+01   3.0720e-02   4.7156e-01
+  GRID-ZAKHOR                    3.5933e+00   0.0000e+00   2.8099e-02
+  GRID-STATIC                    8.8433e+01   0.0000e+00   4.7156e-01
+  ORACLE-PHI                     1.7219e+00   4.6955e-02   0.0000e+00
+  H6 S3↑: REGIME events near step: 1 (want 1)  PHI-ZAKHOR recovery=156  G2 recovery=0  (budget=11) — PASS
+    REGIME: block=2051  0.517→-7.580 shells  Δ=8.097
+
+S3 STEP ↓ (−8 shells) (spread(std=0.3))
+--------------------------------------------------------------------------------------
+  competitor                            MSE    underflow     overflow
+  PHI-ZAKHOR                     8.6743e-04   5.4794e-02   9.8763e-03
+  PHI-ZAKHOR-KEEP-G2             8.8158e-04   8.5888e-02   0.0000e+00
+  PHI-STATIC                     8.7325e-04   5.2811e-01   0.0000e+00
+  GRID-ZAKHOR                    5.0916e-04   0.0000e+00   9.8763e-03
+  GRID-STATIC                    2.6441e-03   0.0000e+00   0.0000e+00
+  ORACLE-PHI                     7.7255e-04   4.6677e-02   0.0000e+00
+  H6 S3↓: REGIME events: 0 (want 0 — step-DOWN signal is not a stranger)  PHI-ZAKHOR recovery=55  G2 recovery=78  (budget=11) — FALSIFIED
+  Contrast: rebirth T=0 (gated UP) vs T(Δ=8,f≈0.68,α=1/64)≈156 (ungated)
+  H6 overall: FALSIFIED
+
+§1 S4 SPIKES (φ^+10 every 256 blocks) (spread(std=0.3))
+--------------------------------------------------------------------------------------
+  competitor                            MSE    underflow     overflow
+  PHI-ZAKHOR                     8.5726e-01   5.9845e-02   8.5983e-03
+  PHI-ZAKHOR-KEEP-G2             2.7726e-03   8.9615e-02   0.0000e+00
+  PHI-STATIC                     8.9515e-02   9.9994e-01   0.0000e+00
+  GRID-ZAKHOR                    9.8100e-01   0.0000e+00   8.5983e-03
+  GRID-STATIC                    6.3400e+01   0.0000e+00   0.0000e+00
+  ORACLE-PHI                     1.8937e-03   4.9877e-02   0.0000e+00
+
+  §4 S4a ungated regression: peak_disp=0.1656 (exp003 ref=0.1656) — PASS
+  §1 H5(a) state displacement: peak=0.000000 shells (threshold ≤0.01, analyzed 15 spikes, all_zero=True) — PASS
+  S4 REGIME events: 0 (expected 0 — isolated spikes never reach K=3)
+  §1 H5(b) S4c collateral (normal-block R / S1 R, threshold ≤1.2):
+    PHI-ZAKHOR                   R_normal=1.658  R_s1=1.157  ratio=1.433
+    PHI-ZAKHOR-KEEP-G2           R_normal=1.856  R_s1=1.178  ratio=1.575
+    GRID-ZAKHOR                  R_normal=78.976  R_s1=0.687  ratio=114.886
+  S4b spike fidelity (spike-MSE / normal-MSE):
+    PHI-ZAKHOR                     88756.01×
+    PHI-ZAKHOR-KEEP-G2                 2.18×
+    PHI-STATIC                         1.03×
+    GRID-ZAKHOR                     2001.55×
+    GRID-STATIC                        0.98×
+    ORACLE-PHI                        60.01×
+  §1 H5(c) over-declaration: G2 declared_rate=5.7220e-05 (limit=6.4087e-05) — PASS
+  H5 overall: FALSIFIED
+
+  §3 Honesty v3 (spread(std=0.3)) — spike frac: 6.10e-05, H7 silent limit: 1.0e-03
+  competitor                      decl_rate   mid_ret_rate   silent_err
+  PHI-ZAKHOR                     0.0000e+00     0.0000e+00   1.6136e-01
+  PHI-ZAKHOR-KEEP-G2             5.7220e-05     1.5771e-01   1.4621e-01
+  PHI-STATIC                     0.0000e+00     0.0000e+00   9.2623e-01
+  GRID-ZAKHOR                    0.0000e+00     0.0000e+00   2.6524e-01
+  GRID-STATIC                    0.0000e+00     0.0000e+00   9.9994e-01
+  ORACLE-PHI                     0.0000e+00     0.0000e+00   0.0000e+00
+  H7: silent_err=1.4621e-01 (< 1.0e-03) — FALSIFIED
+  PHI-STATIC silent-error: 9.262e-01 (standing contrast: silence is not fidelity)
+
+  Three registers (spread(std=0.3)):
+    Stranger log: 15 entries.  Mid-return blocks: 646/4096.  Regime log: 0 entries.
+    First 3 strangers: [(257, -10.000000000000002, 90.11862024533785), (513, -10.000000000000002, 97.11245741033967), (769, -10.000000000000002, 100.03370184055153)]
+    Regime events: []
+  H7 on S3↑: silent_err=1.5576e-01 — FALSIFIED  regime=1 events
+  H7 on S3↓: silent_err=1.5170e-01 — FALSIFIED  mid_return_blocks=576
+  H7 all streams: FALSIFIED
+
+================================================================================================
+§4 H2-f REGRESSION (PHI-ZAKHOR ungated must reproduce exp004 ±8%)
+================================================================================================
+     alpha |   dir |   T_meas |   T_form |   f_shells |   err_frac | verdict
+    0.0625 |    UP |       38 |     41.0 |     0.6159 |      0.080 | PASS
+    0.0625 |    DN |       13 |     13.6 |     3.4129 |      0.049 | PASS
+    0.0156 |    UP |      159 |    157.9 |     0.6781 |      0.007 | PASS
+    0.0156 |    DN |       56 |     56.8 |     3.2934 |      0.014 | PASS
+    0.0039 |    UP |      591 |    591.8 |     0.7927 |      0.001 | PASS
+    0.0039 |    DN |      225 |    226.4 |     3.3043 |      0.006 | PASS
+  H2-f regression: PASS
+
+================================================================================================
+VERDICT SUMMARY
+================================================================================================
+  check                              peaked       spread
+  regression                           PASS         PASS
+  H5a                                  PASS         PASS
+  H5b                             FALSIFIED    FALSIFIED
+  H5c                             FALSIFIED         PASS
+  H5                              FALSIFIED    FALSIFIED
+  H6-up                                PASS         PASS
+  H6-dn                           FALSIFIED    FALSIFIED
+  H6                              FALSIFIED    FALSIFIED
+  H7                              FALSIFIED    FALSIFIED
+  H7-all                          FALSIFIED    FALSIFIED
+  S4a-reg                              PASS         PASS
+  H2f-reg                              PASS
+
+  H0-id: RETIRED (two-strike rule, exp004). Shell automorphism: descriptive only.
+  T=ln(Δ/f)/α (ungated) vs rebirth ≤ K+8 (gated): both numbers in record.
+  Verdicts: PASS / FALSIFIED / METRIC-DEFECT — no fourth category.
+
+================================================================================================
+REPRODUCIBILITY
+  run1=2d9db6c01be5308a  run2=2d9db6c01be5308a  PASS (bit-identical)
+
+  Log dated output to research/results/exp005_<YYYY-MM-DD>.txt.

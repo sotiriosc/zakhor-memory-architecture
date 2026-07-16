@@ -1,0 +1,106 @@
+Zakhor Memory Architecture :: Closing Audit — 2026-07-11
+================================================================================================
+  Decision rule frozen before computation. Read-only replay of exp007.
+  Expected SHA-256 prefix: 8c7757cb17bc6298
+  K+4 = 7  settle_window = 7
+  Decision branches: Lift ≥ 2.0 AND sens=100% → CLOSE;  Lift < 1.25 → OPEN exp007b;  gray zone → steward judgment.
+
+  SHA-256: 8c7757cb17bc62984cfed2466e8d57ad848afc4cf8d1cb3201e22eb1c33d0167
+  Bit-identical: PASS  Prefix match: PASS
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Distribution: peaked(std=0.15)  G=1.0  D=2.0  noise_threshold=0.7507
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  [S1 peaked(std=0.15)]
+    Settle set:  0 blocks  Stranger: 4 blocks  Mid-return (formula-clock): 735 blocks  Unflagged: 3357 blocks
+    E_f = 0.9976  E_u = 0.9973  Lift = 1.0003
+    S1 noise floor: mid-return coverage = 736/4096 = 18.0%  (all flags are false alarms by construction)
+
+  [S3↑ peaked(std=0.15)]
+    Settle set:  7 blocks  Stranger: 10 blocks  Mid-return (formula-clock): 988 blocks  Unflagged: 3091 blocks
+    E_f = 0.9971  E_u = 0.9968  Lift = 1.0003
+    Sensitivity: 0/0 = N/A (all excl.)  (gt blocks not excl.)
+
+  [S3↓ peaked(std=0.15)]
+    Settle set:  7 blocks  Stranger: 10 blocks  Mid-return (formula-clock): 918 blocks  Unflagged: 3161 blocks
+    E_f = 0.9984  E_u = 0.9981  Lift = 1.0002
+    Sensitivity: 2/2 = 100.0%  (gt blocks not excl.)
+
+  [S4 peaked(std=0.15)]
+    Settle set:  7 blocks  Stranger: 27 blocks  Mid-return (formula-clock): 988 blocks  Unflagged: 3074 blocks
+    E_f = 0.9985  E_u = 0.9977  Lift = 1.0008
+    **Sensitivity: 2/3 = 66.7%  (gt blocks not excl.)**
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Distribution: spread(std=0.3)  G=1.0  D=2.0  noise_threshold=0.7039
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  [S1 spread(std=0.3)]
+    Settle set:  0 blocks  Stranger: 0 blocks  Mid-return (formula-clock): 280 blocks  Unflagged: 3816 blocks
+    E_f = 0.9984  E_u = 0.9972  Lift = 1.0012
+    S1 noise floor: mid-return coverage = 280/4096 = 6.8%  (all flags are false alarms by construction)
+
+  [S3↑ spread(std=0.3)]
+    Settle set:  7 blocks  Stranger: 2 blocks  Mid-return (formula-clock): 465 blocks  Unflagged: 3622 blocks
+    E_f = 0.9979  E_u = 0.9967  Lift = 1.0012
+    Sensitivity: 0/0 = N/A (all excl.)  (gt blocks not excl.)
+
+  [S3↓ spread(std=0.3)]
+    Settle set:  7 blocks  Stranger: 0 blocks  Mid-return (formula-clock): 395 blocks  Unflagged: 3694 blocks
+    E_f = 0.9981  E_u = 0.9982  Lift = 1.0000
+    Sensitivity: 2/2 = 100.0%  (gt blocks not excl.)
+
+  [S4 spread(std=0.3)]
+    Settle set:  7 blocks  Stranger: 15 blocks  Mid-return (formula-clock): 441 blocks  Unflagged: 3633 blocks
+    E_f = 0.9988  E_u = 0.9978  Lift = 1.0010
+    **Sensitivity: 2/3 = 66.7%  (gt blocks not excl.)**
+
+================================================================================================
+POOLED MEASUREMENTS
+================================================================================================
+
+  stream   dist                          E_f      E_u     Lift    sensitivity   mid_rate
+  S1       peaked                     0.9976   0.9973   1.0003            N/A      18.0%
+  S3↑      peaked                     0.9971   0.9968   1.0003            N/A      24.3%
+  S3↓      peaked                     0.9984   0.9981   1.0002         100.0%      22.7%
+  S4       peaked                     0.9985   0.9977   1.0008          66.7%      24.5%
+  S1       spread                     0.9984   0.9972   1.0012            N/A       6.8%
+  S3↑      spread                     0.9979   0.9967   1.0012            N/A      11.5%
+  S3↓      spread                     0.9981   0.9982   1.0000         100.0%       9.8%
+  S4       spread                     0.9988   0.9978   1.0010          66.7%      10.9%
+
+  Pooled Lift (non-S1 streams): 1.0006
+  S4-only Lift:                 1.0009
+  S1 noise floor mean:          12.4%  (target: definitional false-alarm rate)
+
+  *** SENSITIVITY < 100% IN: S4/peaked sens=66.7%, S4/spread sens=66.7%
+  *** Per decision rule, Path A (CLOSE) is blocked regardless of Lift.
+
+================================================================================================
+DECISION
+================================================================================================
+
+  Branch: OPEN exp007b
+  Rationale: Pooled Lift=1.001 < 1.25. Register carries insufficient information to distinguish genuinely miscalibrated blocks from normal blocks. A memory whose confidence signal carries no information has an unkept register. exp007b opens (§2 mechanics only).
+  *** Sensitivity misses: S4/peaked sens=66.7%, S4/spread sens=66.7%
+  *** Path A was blocked by sensitivity < 100% regardless of Lift.
+
+  S1 noise floor: 12.4% of blocks flagged on purely stationary data.
+  Every S1 mid-return flag is a false alarm by construction.
+  This is the register's irreducible base rate, entering Note 02.
+
+  Note 02 note: H11 METRIC-DEFECT and H12 FALSIFIED stand unchanged.
+  The audit verdict is copied verbatim into Note 02 §2 (funerals/costs).
+
+================================================================================================
+PREDICTION POSTMORTEM (Claude, recorded pre-computation)
+================================================================================================
+  Predicted Lift: ~1.0–1.3  (structural 23.6% max-rel-err dominates both groups)
+  Observed pooled Lift: 1.0006
+  MATCH: structural floor hypothesis confirmed.
+  The maximum relative error per block is bounded by (φ−1)/(φ+1)≈0.236
+  for any phi-codebook block with adequate sample count, independent of
+  calibration state. Formula-clock triggers do not elevate this floor.
+
+  Replay SHA-256: 8c7757cb17bc62984cfed2466e8d57ad848afc4cf8d1cb3201e22eb1c33d0167
+  Output: research/results/closing_audit_2026-07-11.txt

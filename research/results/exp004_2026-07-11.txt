@@ -1,0 +1,240 @@
+Zakhor Memory Architecture :: Experiment 004 — The Guard Band, the Formula, and the Last Statement of H0-id
+====================================================================================================
+  Pre-registered thresholds frozen 2026-07-11. See docs/exp004-pre-registration.md.
+  Two-strike retirement rule: H0-id is on its third and final operationalization.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Distribution: peaked(std=0.15)
+  Calibration (CAL_BLOCKS=256, alpha=1/64): G=1.0 shells  theta=3.0027
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+§5 S1 STATIONARY (peaked(std=0.15))
+----------------------------------------------------------------------------------
+  competitor                          MSE    underflow     overflow
+  PHI-ZAKHOR                   4.4145e-04   4.6104e-02   1.0456e-02
+  PHI-ZAKHOR-KEEP-G            4.3679e-04   7.4304e-02   0.0000e+00
+  PHI-STATIC                   4.3401e-04   6.5262e-02   2.2125e-04
+  GRID-ZAKHOR                  2.6065e-04   0.0000e+00   1.0456e-02
+  GRID-STATIC                  4.4654e-04   0.0000e+00   2.2125e-04
+  ORACLE-PHI                   3.8741e-04   4.6463e-02   0.0000e+00
+  Regression gate: PHI-ZAKHOR 4.4145e-04  PHI-ZAKHOR-KEEP-G 4.3679e-04 — PASS
+  §1b Overflow rates on S1 (threshold ≤ 1.5%):
+    PHI-ZAKHOR-KEEP-G        0.0015%
+    PHI-ZAKHOR               1.0456%
+
+§4 H0-id BOUNDED RETURN (peaked(std=0.15))  [MAX_J=7, two-strike retirement rule]
+----------------------------------------------------------------------------------------------------
+     m |   φ-int-corr |   φ-int-feas |  φ-edge-rate |  uni-int-corr | uni-edge-rate | verdict
+     1 |       0.9181 |       0.9181 |       0.0000 |        0.2241 |        0.0000 | FALSIFIED
+     2 |       0.9179 |       0.9179 |       0.0019 |        0.1364 |        0.0012 | FALSIFIED
+     4 |       0.8933 |       0.8933 |       0.2320 |        0.3012 |        0.3792 | FALSIFIED
+
+  Interior feasibility on S2↑: φ=0.0214 uni=0.0041  (threshold φ≥0.80) — FALSIFIED
+  H0-id bounded overall: FALSIFIED
+  *** TWO-STRIKE RETIREMENT: H0-id FALSIFIED under three operationalizations.
+      Shell automorphism (0.91 vs 0.22) stands as a descriptive property.
+      No further H0-id restatement permitted.
+
+§2 H2-f RECOVERY FORMULA T(Δ)=(1/α)·ln(Δ/f), ±25% (peaked(std=0.15))
+     alpha |   dir |   T_meas |   T_form |   f_shells |   err_frac | verdict
+    0.0625 |    UP |       38 |     41.0 |     0.6159 |      0.080 | PASS
+    0.0625 |    DN |       13 |     13.6 |     3.4129 |      0.049 | PASS
+    0.0156 |    UP |      159 |    157.9 |     0.6781 |      0.007 | PASS
+    0.0156 |    DN |       56 |     56.8 |     3.2934 |      0.014 | PASS
+    0.0039 |    UP |      591 |    591.8 |     0.7927 |      0.001 | PASS
+    0.0039 |    DN |      225 |    226.4 |     3.3043 |      0.006 | PASS
+  H2-f overall: PASS
+  Asymmetry: exp003 found UP=156 DOWN=55 (both ~1/alpha, now expected symmetric)
+
+S3 STEP ↑ (+8 shells) (peaked(std=0.15))
+----------------------------------------------------------------------------------
+  competitor                          MSE    underflow     overflow
+  PHI-ZAKHOR                   1.0999e+00   4.5181e-02   2.7725e-02
+  PHI-ZAKHOR-KEEP-G            4.5815e-01   7.2843e-02   0.0000e+00
+  PHI-STATIC                   2.2093e+01   3.1399e-02   4.7123e-01
+  GRID-ZAKHOR                  9.0932e-01   0.0000e+00   2.7725e-02
+  GRID-STATIC                  2.2093e+01   0.0000e+00   4.7123e-01
+  ORACLE-PHI                   4.2984e-01   4.7138e-02   0.0000e+00
+
+§1/§3 S4 SPIKES (φ^+10 every 256 blocks) (peaked(std=0.15))
+----------------------------------------------------------------------------------
+  competitor                          MSE    underflow     overflow
+  PHI-ZAKHOR                   8.6081e-01   6.2111e-02   8.1940e-03
+  PHI-ZAKHOR-KEEP-G            7.3363e-04   9.3775e-02   0.0000e+00
+  PHI-STATIC                   2.2418e-02   9.9994e-01   0.0000e+00
+  GRID-ZAKHOR                  9.7826e-01   0.0000e+00   8.1940e-03
+  GRID-STATIC                  6.5291e+01   0.0000e+00   0.0000e+00
+  ORACLE-PHI                   4.7449e-04   5.0152e-02   0.0000e+00
+
+  S4a regression: peak_disp=0.1880 (exp003 ref=0.1880, tol=±0.02) — PASS
+  §1 H4 — S4c collateral (normal-block R / S1 R, threshold ≤1.2):
+    PHI-ZAKHOR               R_normal=1.792  R_s1=1.175  ratio=1.525
+    PHI-ZAKHOR-KEEP-G        R_normal=1.959  R_s1=1.167  ratio=1.679
+    GRID-ZAKHOR              R_normal=292.927  R_s1=0.709  ratio=413.027
+  H4 (S4c + overflow): FALSIFIED
+  S4b spike fidelity (spike-MSE / normal-MSE):
+    PHI-ZAKHOR                327450.01×
+    PHI-ZAKHOR-KEEP-G              2.04×
+    PHI-STATIC                     1.04×
+    GRID-ZAKHOR                 2181.95×
+    GRID-STATIC                    0.98×
+    ORACLE-PHI                    60.31×
+
+  §3 Honesty v2 (peaked(std=0.15)) — spike fraction: 6.10e-05, H3-r decl limit: 6.41e-05
+  competitor                  decl_rate   mid_ret_rate   silent_err
+  PHI-ZAKHOR                 0.0000e+00     0.0000e+00   1.6159e-01
+  PHI-ZAKHOR-KEEP-G          8.0109e-05     2.5574e-02   1.7493e-01
+  PHI-STATIC                 0.0000e+00     0.0000e+00   9.2580e-01
+  GRID-ZAKHOR                0.0000e+00     0.0000e+00   2.6659e-01
+  GRID-STATIC                0.0000e+00     0.0000e+00   9.9994e-01
+  ORACLE-PHI                 0.0000e+00     0.0000e+00   0.0000e+00
+
+  H3-r: silent_err FALSIFIED | over-declare FALSIFIED | collateral FALSIFIED | OVERALL FALSIFIED
+
+  Stranger log v2: 21 entries. Mid-return log: 105 blocks flagged.
+  First 3 strangers:
+    block=  257  shell_coord= -10.000  overshoot=178.443×
+    block=  513  shell_coord= -10.000  overshoot=194.115×
+    block=  769  shell_coord= -10.000  overshoot=199.949×
+  First 3 mid-return blocks: [2, 3, 4]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Distribution: spread(std=0.3)
+  Calibration (CAL_BLOCKS=256, alpha=1/64): G=1.0 shells  theta=2.8156
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+§5 S1 STATIONARY (spread(std=0.3))
+----------------------------------------------------------------------------------
+  competitor                          MSE    underflow     overflow
+  PHI-ZAKHOR                   1.7323e-03   4.5933e-02   1.0750e-02
+  PHI-ZAKHOR-KEEP-G            1.7616e-03   7.4024e-02   0.0000e+00
+  PHI-STATIC                   1.7139e-03   5.9399e-02   0.0000e+00
+  GRID-ZAKHOR                  1.0052e-03   0.0000e+00   1.0750e-02
+  GRID-STATIC                  1.4806e-03   0.0000e+00   0.0000e+00
+  ORACLE-PHI                   1.5486e-03   4.6219e-02   0.0000e+00
+  Regression gate: PHI-ZAKHOR 1.7323e-03  PHI-ZAKHOR-KEEP-G 1.7616e-03 — PASS
+  §1b Overflow rates on S1 (threshold ≤ 1.5%):
+    PHI-ZAKHOR-KEEP-G        0.0000%
+    PHI-ZAKHOR               1.0750%
+
+§4 H0-id BOUNDED RETURN (spread(std=0.3))  [MAX_J=7, two-strike retirement rule]
+----------------------------------------------------------------------------------------------------
+     m |   φ-int-corr |   φ-int-feas |  φ-edge-rate |  uni-int-corr | uni-edge-rate | verdict
+     1 |       0.9181 |       0.9181 |       0.0000 |        0.2241 |        0.0000 | FALSIFIED
+     2 |       0.9179 |       0.9179 |       0.0019 |        0.1364 |        0.0012 | FALSIFIED
+     4 |       0.8933 |       0.8933 |       0.2320 |        0.3012 |        0.3792 | FALSIFIED
+
+  Interior feasibility on S2↑: φ=0.0147 uni=0.0013  (threshold φ≥0.80) — FALSIFIED
+  H0-id bounded overall: FALSIFIED
+  *** TWO-STRIKE RETIREMENT: H0-id FALSIFIED under three operationalizations.
+      Shell automorphism (0.91 vs 0.22) stands as a descriptive property.
+      No further H0-id restatement permitted.
+
+§2 H2-f RECOVERY FORMULA T(Δ)=(1/α)·ln(Δ/f), ±25% (spread(std=0.3))
+     alpha |   dir |   T_meas |   T_form |   f_shells |   err_frac | verdict
+    0.0625 |    UP |       38 |     40.7 |     0.6270 |      0.072 | PASS
+    0.0625 |    DN |       13 |     13.6 |     3.4141 |      0.048 | PASS
+    0.0156 |    UP |      159 |    157.9 |     0.6787 |      0.007 | PASS
+    0.0156 |    DN |       62 |     63.0 |     2.9883 |      0.017 | PASS
+    0.0039 |    UP |      677 |    674.0 |     0.5749 |      0.004 | PASS
+    0.0039 |    DN |      225 |    226.4 |     3.3040 |      0.006 | PASS
+  H2-f overall: PASS
+  Asymmetry: exp003 found UP=156 DOWN=55 (both ~1/alpha, now expected symmetric)
+
+S3 STEP ↑ (+8 shells) (spread(std=0.3))
+----------------------------------------------------------------------------------
+  competitor                          MSE    underflow     overflow
+  PHI-ZAKHOR                   4.3587e+00   4.4991e-02   2.8099e-02
+  PHI-ZAKHOR-KEEP-G            1.8492e+00   7.2604e-02   0.0000e+00
+  PHI-STATIC                   8.8433e+01   3.0720e-02   4.7156e-01
+  GRID-ZAKHOR                  3.5933e+00   0.0000e+00   2.8099e-02
+  GRID-STATIC                  8.8433e+01   0.0000e+00   4.7156e-01
+  ORACLE-PHI                   1.7219e+00   4.6955e-02   0.0000e+00
+
+§1/§3 S4 SPIKES (φ^+10 every 256 blocks) (spread(std=0.3))
+----------------------------------------------------------------------------------
+  competitor                          MSE    underflow     overflow
+  PHI-ZAKHOR                   8.5726e-01   5.9845e-02   8.5983e-03
+  PHI-ZAKHOR-KEEP-G            2.7704e-03   9.1190e-02   0.0000e+00
+  PHI-STATIC                   8.9515e-02   9.9994e-01   0.0000e+00
+  GRID-ZAKHOR                  9.8100e-01   0.0000e+00   8.5983e-03
+  GRID-STATIC                  6.3400e+01   0.0000e+00   0.0000e+00
+  ORACLE-PHI                   1.8937e-03   4.9877e-02   0.0000e+00
+
+  S4a regression: peak_disp=0.1656 (exp003 ref=0.1656, tol=±0.02) — PASS
+  §1 H4 — S4c collateral (normal-block R / S1 R, threshold ≤1.2):
+    PHI-ZAKHOR               R_normal=1.658  R_s1=1.157  ratio=1.433
+    PHI-ZAKHOR-KEEP-G        R_normal=1.855  R_s1=1.178  ratio=1.574
+    GRID-ZAKHOR              R_normal=78.976  R_s1=0.687  ratio=114.886
+  H4 (S4c + overflow): FALSIFIED
+  S4b spike fidelity (spike-MSE / normal-MSE):
+    PHI-ZAKHOR                 88756.01×
+    PHI-ZAKHOR-KEEP-G              2.18×
+    PHI-STATIC                     1.03×
+    GRID-ZAKHOR                 2001.55×
+    GRID-STATIC                    0.98×
+    ORACLE-PHI                    60.01×
+
+  §3 Honesty v2 (spread(std=0.3)) — spike fraction: 6.10e-05, H3-r decl limit: 6.41e-05
+  competitor                  decl_rate   mid_ret_rate   silent_err
+  PHI-ZAKHOR                 0.0000e+00     0.0000e+00   1.6136e-01
+  PHI-ZAKHOR-KEEP-G          5.7220e-05     2.3624e-02   1.7641e-01
+  PHI-STATIC                 0.0000e+00     0.0000e+00   9.2623e-01
+  GRID-ZAKHOR                0.0000e+00     0.0000e+00   2.6524e-01
+  GRID-STATIC                0.0000e+00     0.0000e+00   9.9994e-01
+  ORACLE-PHI                 0.0000e+00     0.0000e+00   0.0000e+00
+
+  H3-r: silent_err FALSIFIED | over-declare PASS | collateral FALSIFIED | OVERALL FALSIFIED
+
+  Stranger log v2: 15 entries. Mid-return log: 97 blocks flagged.
+  First 3 strangers:
+    block=  257  shell_coord= -10.000  overshoot=90.119×
+    block=  513  shell_coord= -10.000  overshoot=96.975×
+    block=  769  shell_coord= -10.000  overshoot=99.887×
+  First 3 mid-return blocks: [2, 3, 4]
+
+====================================================================================================
+ALPHA SWEEP — H2-f formula check (peaked distribution only)
+====================================================================================================
+  Guard G=1.0 theta=3.0027 (peaked, already derived above)
+     alpha |   dir |   T_meas |   T_form |   f_shells |   err_frac |   pred_T
+    0.0625 |    UP |       38 |     41.0 |     0.6159 |      0.080 |       16  PASS
+    0.0625 |    DN |       13 |     13.6 |     3.4129 |      0.049 |       16  PASS
+    0.0156 |    UP |      159 |    157.9 |     0.6781 |      0.007 |       64  PASS
+    0.0156 |    DN |       56 |     56.8 |     3.2934 |      0.014 |       64  PASS
+    0.0039 |    UP |      591 |    591.8 |     0.7927 |      0.001 |      256  PASS
+    0.0039 |    DN |      225 |    226.4 |     3.3043 |      0.006 |      256  PASS
+
+====================================================================================================
+VERDICT SUMMARY
+====================================================================================================
+  check                                peaked       spread
+  regression                             PASS         PASS
+  H4-overflow                            PASS         PASS
+  H4-S4c                            FALSIFIED    FALSIFIED
+  H4                                FALSIFIED    FALSIFIED
+  H0id-m1                           FALSIFIED    FALSIFIED
+  H0id-m2                           FALSIFIED    FALSIFIED
+  H0id-m4                           FALSIFIED    FALSIFIED
+  H0id-feas-int                     FALSIFIED    FALSIFIED
+  H0id-bounded                      FALSIFIED    FALSIFIED
+  H2f                                    PASS         PASS
+  H3r                               FALSIFIED    FALSIFIED
+  S4a-reg                                PASS         PASS
+
+  ═══════════════════════════════════════════════════════════════════
+  H0-id RETIRED after three falsifications (exp002 MSE form;
+  exp003 edge-conflation form; exp004 bounded interior form).
+  The shell automorphism (0.91 vs 0.22 at m=1) stands as a
+  descriptive geometric property of the φ-codebook, with no
+  load-bearing role in the architecture. No exp005 restatement.
+  ═══════════════════════════════════════════════════════════════════
+
+  Verdicts: PASS / FALSIFIED / METRIC-DEFECT — no fourth category.
+  All prior experiment verdicts stand as recorded.
+
+====================================================================================================
+REPRODUCIBILITY
+  run1=c6da02a9c8242d43  run2=c6da02a9c8242d43  PASS (bit-identical)
+
+  Log dated output to research/results/exp004_<YYYY-MM-DD>.txt.

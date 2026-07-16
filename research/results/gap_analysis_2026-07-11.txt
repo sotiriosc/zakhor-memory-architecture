@@ -1,0 +1,78 @@
+Zakhor Memory Architecture :: Gap Analysis — The Simple Road (2026-07-11)
+================================================================================================
+  POST-SERIES EXPLORATORY. No verdict touched. H14 stands FALSIFIED.
+  Series is CLOSED. This measures the gap for Architecture Note 02.
+
+  Simple road: MID-RETURN also raised on non-stranger blocks with
+  nonzero regime counter (evidence-in-progress made visible).
+  Alternative: three-state Watchman on the noise threshold —
+  stationary cost ≈ 1.8%^p (p=1: 1.8%, p=2: ~0.032%).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Distribution: peaked(std=0.15)   G=1.0  D=2.0  noise_threshold=0.7507
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  stream  ctr-visible      rate  exp007b cov   hyp cov   validation
+  S1                0    0.000%        3/4096    3/4096           OK
+  S2                0    0.000%        3/4096    3/4096           OK
+  S3u               0    0.000%       10/4096   10/4096           OK
+         hypothetical sensitivity: N/A (all excluded)
+  S3d               2    0.049%       10/4096   12/4096           OK
+         counter-visible blocks (0-idx): [2048, 2049]
+         hypothetical sensitivity: 2/2 = 100.0%
+  S4                2    0.049%       10/4096   10/4096           OK
+         counter-visible blocks (0-idx): [1, 2]
+         hypothetical sensitivity: 3/3 = 100.0%
+
+  Reported vs frozen bounds (peaked(std=0.15)) — informational only:
+    S1 hyp coverage: 3/4096 (0.073%)   [H13 bound was 0.5%]
+    S4 hyp coverage: 10/4096 (0.244%)   [H12-b bound was 2%]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Distribution: spread(std=0.3)   G=1.0  D=2.0  noise_threshold=0.7039
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  stream  ctr-visible      rate  exp007b cov   hyp cov   validation
+  S1                0    0.000%        3/4096    3/4096           OK
+  S2                0    0.000%        7/4096    7/4096           OK
+  S3u               0    0.000%       10/4096   10/4096           OK
+         hypothetical sensitivity: N/A (all excluded)
+  S3d               2    0.049%       10/4096   12/4096           OK
+         counter-visible blocks (0-idx): [2048, 2049]
+         hypothetical sensitivity: 2/2 = 100.0%
+  S4                2    0.049%       10/4096   10/4096           OK
+         counter-visible blocks (0-idx): [1, 2]
+         hypothetical sensitivity: 3/3 = 100.0%
+
+  Reported vs frozen bounds (spread(std=0.3)) — informational only:
+    S1 hyp coverage: 3/4096 (0.073%)   [H13 bound was 0.5%]
+    S4 hyp coverage: 10/4096 (0.244%)   [H12-b bound was 2%]
+
+================================================================================================
+SYNTHESIS — the roads across the gap
+================================================================================================
+  Offline counter reconstruction matches sworn REGIME logs: YES (exact)
+
+  Simple road (counter-visibility):
+    Stationary + drift cost: 0 blocks (worst distribution, S1+S2 combined)
+    S3↓ blind spot closed: YES
+    S4 sensitivity kept:   YES
+    New machinery: none. New thresholds: none. New state: none.
+    One read of a register that already exists.
+
+  Three-state Watchman (for comparison, arithmetic only):
+    p=1 on noise threshold: ~1.8% stationary floor (~73 blocks — reopens what H13 closed)
+    p=2 on noise threshold: ~0.032% floor (~1–2 blocks) but still misses the FIRST deviation block — gap shrinks to 1,
+    does not close. New state machine, new parameter p.
+
+  Nothing (accept the gap): K−1 = 2 blocks dark at every step-DOWN, forever.
+
+  ANSWER: the simple road is best, and it is strictly better —
+  it closes the blind spot completely at a measured stationary
+  cost of 0 blocks, using no new machinery.
+  The H14 falsification was not a grammar failure but a wiring
+  gap: the evidence for 'possibly a new world' was already
+  counted in the regime register; the confidence register never
+  asked it. The watchman was awake. Nobody read his ledger.
+
+  This analysis earns no verdict. The series remains CLOSED.
+  If the counter-visible trigger is ever to be sworn, it requires
+  a new pre-registration outside this series, judged fresh.

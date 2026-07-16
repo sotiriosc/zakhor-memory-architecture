@@ -1,0 +1,306 @@
+Zakhor Memory Architecture :: Experiment 007 — The Geometric Promise
+================================================================================================
+  Pre-registered 2026-07-11. H0-id retired. H10 metric family retired (METRIC-DEFECT).
+  K=3  f̂=0.7  settle=7  H11_limit=1.0e-03  H12_limit=2%  promise_const≈0.1910
+  Ghost-fix: rebirth resets mid_countdown to 7 (SET, not max).
+  §2 note: rebirth at step+K resolves state immediately; pre-rebirth formula-clock is a ghost.
+  H12 exp006 baseline: peaked=1097/4096  spread=594/4096
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Distribution: peaked(std=0.15)
+  Calibration: G=1.0  D=2.0  noise_threshold=0.7507  e_hat=0.0078  N̂=32.1  H9_limit=82.3
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+§3 S1 STATIONARY (peaked(std=0.15))
+--------------------------------------------------------------------------------------
+  competitor                            MSE    underflow     overflow
+  PHI-ZAKHOR                     4.4145e-04   4.6104e-02   1.0456e-02
+  PHI-ZAKHOR-KEEP-G3             4.3679e-04   7.4266e-02   0.0000e+00
+  PHI-STATIC                     4.3401e-04   6.5262e-02   2.2125e-04
+  GRID-ZAKHOR                    2.6065e-04   0.0000e+00   1.0456e-02
+  GRID-STATIC                    4.4654e-04   0.0000e+00   2.2125e-04
+  ORACLE-PHI                     3.8741e-04   4.6463e-02   0.0000e+00
+  ORACLE-PHI-G                   3.9634e-04   7.4947e-02   0.0000e+00
+  Regression: PHI-ZAKHOR 4.4145e-04  G3 4.3679e-04 — PASS
+  S1 REGIME events: 0 (want 0)  stranger: 4  mid-return blocks: 736/4096
+
+S2 SLOW DRIFT ↑ (peaked(std=0.15))
+--------------------------------------------------------------------------------------
+  competitor                            MSE    underflow     overflow
+  PHI-ZAKHOR                     4.1171e+00   4.2164e-02   1.9146e-02
+  PHI-ZAKHOR-KEEP-G3             3.8384e+00   6.8061e-02   0.0000e+00
+  PHI-STATIC                     1.9241e+02   1.2165e-02   6.5466e-01
+  GRID-ZAKHOR                    2.4164e+00   0.0000e+00   1.9146e-02
+  GRID-STATIC                    1.9241e+02   0.0000e+00   6.5466e-01
+  ORACLE-PHI                     3.4434e+00   4.6597e-02   0.0000e+00
+  ORACLE-PHI-G                   3.5254e+00   7.5771e-02   0.0000e+00
+  S2 REGIME events: 0  (expected 0)
+
+§3 S3 STEP ↑ (+8 shells) (peaked(std=0.15))
+--------------------------------------------------------------------------------------
+  competitor                            MSE    underflow     overflow
+  PHI-ZAKHOR                     1.0999e+00   4.5181e-02   2.7725e-02
+  PHI-ZAKHOR-KEEP-G3             4.7626e-01   7.4625e-02   0.0000e+00
+  PHI-STATIC                     2.2093e+01   3.1399e-02   4.7123e-01
+  GRID-ZAKHOR                    9.0932e-01   0.0000e+00   2.7725e-02
+  GRID-STATIC                    2.2093e+01   0.0000e+00   4.7123e-01
+  ORACLE-PHI                     4.2984e-01   4.7138e-02   0.0000e+00
+  ORACLE-PHI-G                   4.3980e-01   7.5653e-02   0.0000e+00
+  H8(b) S3↑: REGIME_total=1  near_step=1 (want 1)  PHI-ZAKHOR T=156  G3 T=0 (budget=11) — PASS
+    REGIME: block=2051  1.950→-6.139  signed=-8.089 shells
+  S3↑ mid-return blocks with ghost-fix: 995/4096  (24.3%)
+
+§3 S3 STEP ↓ (−8 shells) (peaked(std=0.15))
+--------------------------------------------------------------------------------------
+  competitor                            MSE    underflow     overflow
+  PHI-ZAKHOR                     2.2206e-04   5.5031e-02   9.5825e-03
+  PHI-ZAKHOR-KEEP-G3             2.1832e-04   7.5363e-02   0.0000e+00
+  PHI-STATIC                     2.2137e-04   5.3188e-01   1.4114e-04
+  GRID-ZAKHOR                    1.3299e-04   0.0000e+00   9.5825e-03
+  GRID-STATIC                    7.9626e-04   0.0000e+00   1.4114e-04
+  ORACLE-PHI                     1.9314e-04   4.6932e-02   0.0000e+00
+  ORACLE-PHI-G                   1.9764e-04   7.5283e-02   0.0000e+00
+  H8(a) S3↓: REGIME_total=1  near_step=1 (want 1)  PHI-ZAKHOR T=55  G3 T=2 (budget=11) — PASS
+    REGIME: block=2051  2.268→9.512  signed=+7.244 shells
+  S3↓ mid-return blocks with ghost-fix: 928/4096  (22.7%)
+
+§3 S4 SPIKES (φ^+10 every 256 blocks) (peaked(std=0.15))
+--------------------------------------------------------------------------------------
+  competitor                            MSE    underflow     overflow
+  PHI-ZAKHOR                     8.6081e-01   6.2111e-02   8.1940e-03
+  PHI-ZAKHOR-KEEP-G3             4.4974e-04   7.4581e-02   0.0000e+00
+  PHI-STATIC                     2.2418e-02   9.9994e-01   0.0000e+00
+  GRID-ZAKHOR                    9.7826e-01   0.0000e+00   8.1940e-03
+  GRID-STATIC                    6.5291e+01   0.0000e+00   0.0000e+00
+  ORACLE-PHI                     4.7449e-04   5.0152e-02   0.0000e+00
+  ORACLE-PHI-G                   4.8342e-04   7.8800e-02   0.0000e+00
+
+  §3 S4a regression: peak_disp=0.1880 (ref=0.1880) — PASS
+  §3 H8(c) cold-start: REGIME_total=1  early=1 (want 1)  late=0 (want 0) — PASS
+    REGIME: block=4  -9.627→2.089  signed=+11.716 shells
+  §3 H5a displacement: peak=0.000000  all_zero=True  n=15 — PASS
+  §3 H8(d) hallucination: S1=0  S2=0  S4_isolated=0 (all want 0) — PASS
+  H8 overall: PASS
+  §3 S4c collateral (retired threshold 1.2, reported only):
+    PHI-ZAKHOR                   R_normal=1.792  R_s1=1.175  ratio=1.525
+    PHI-ZAKHOR-KEEP-G3           R_normal=1.195  R_s1=1.167  ratio=1.024
+
+  §3 H9 declaration: declared=28  true_spikes=15  N̂=32.1  limit=82.3  truthful=True — PASS
+    Stranger log (first 3): [(23, 0.9387389886606025, 0.05802817466345522), (43, 0.7202596785325435, 0.17329154251192502), (257, -10.000000000000002, 198.40026819131728)]
+
+  §2 H12 ghost-collapse (peaked(std=0.15)):  exp006=1097/4096 (26.8%)  exp007=1002/4096 (24.5%)  limit=2% — FALSIFIED
+
+  Three registers (peaked(std=0.15), S4):
+    Stranger log: 28 entries.  Mid-return blocks: 1002/4096.  Regime log: 1 entries (signed).
+    REGIME block=4  -9.627→2.089  +11.716 shells (quieter)
+
+  §1 H11 geometric promise (peaked(std=0.15))  promise_const=0.1910
+  stream   competitor                       mis_rate   uflow_rate   flagged%        verdict
+  S1       PHI-ZAKHOR                     2.5597e-01   4.5338e-02       0.0% (ref, 2.560e-01)
+  S1       PHI-ZAKHOR-KEEP-G3             2.9136e-01   7.2703e-02      18.0%      FALSIFIED
+  S1       PHI-STATIC                     2.8018e-01   6.4163e-02       0.0% (ref, 2.802e-01)
+  S1       ORACLE-PHI                     2.5166e-01   4.5712e-02       0.0% (ref, 2.517e-01)
+  S3↑      PHI-ZAKHOR                     2.6441e-01   4.4418e-02       0.0% (ref, 2.644e-01)
+  S3↑      PHI-ZAKHOR-KEEP-G3             2.9047e-01   7.3859e-02      24.5%      FALSIFIED
+  S3↑      PHI-STATIC                     6.0729e-01   3.0895e-02       0.0% (ref, 6.073e-01)
+  S3↑      ORACLE-PHI                     2.5383e-01   4.6391e-02       0.0% (ref, 2.538e-01)
+  S3↓      PHI-ZAKHOR                     2.6571e-01   5.4104e-02       0.0% (ref, 2.657e-01)
+  S3↓      PHI-ZAKHOR-KEEP-G3             2.9185e-01   7.3399e-02      22.8%      FALSIFIED
+  S3↓      PHI-STATIC                     6.1515e-01   5.0663e-01       0.0% (ref, 6.152e-01)
+  S3↓      ORACLE-PHI                     2.5325e-01   4.6143e-02       0.0% (ref, 2.533e-01)
+  S4       PHI-ZAKHOR                     2.6966e-01   6.0596e-02       0.0% (ref, 2.697e-01)
+  S4       PHI-ZAKHOR-KEEP-G3             2.9025e-01   7.3037e-02      25.0%      FALSIFIED
+  S4       PHI-STATIC                     7.6291e-01   7.6291e-01       0.0% (ref, 7.629e-01)
+  S4       ORACLE-PHI                     2.5476e-01   4.8527e-02       0.0% (ref, 2.548e-01)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Distribution: spread(std=0.3)
+  Calibration: G=1.0  D=2.0  noise_threshold=0.7039  e_hat=0.0078  N̂=32.1  H9_limit=82.3
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+§3 S1 STATIONARY (spread(std=0.3))
+--------------------------------------------------------------------------------------
+  competitor                            MSE    underflow     overflow
+  PHI-ZAKHOR                     1.7323e-03   4.5933e-02   1.0750e-02
+  PHI-ZAKHOR-KEEP-G3             1.7616e-03   7.4024e-02   0.0000e+00
+  PHI-STATIC                     1.7139e-03   5.9399e-02   0.0000e+00
+  GRID-ZAKHOR                    1.0052e-03   0.0000e+00   1.0750e-02
+  GRID-STATIC                    1.4806e-03   0.0000e+00   0.0000e+00
+  ORACLE-PHI                     1.5486e-03   4.6219e-02   0.0000e+00
+  ORACLE-PHI-G                   1.5834e-03   7.4562e-02   0.0000e+00
+  Regression: PHI-ZAKHOR 1.7323e-03  G3 1.7616e-03 — PASS
+  S1 REGIME events: 0 (want 0)  stranger: 0  mid-return blocks: 280/4096
+
+S2 SLOW DRIFT ↑ (spread(std=0.3))
+--------------------------------------------------------------------------------------
+  competitor                            MSE    underflow     overflow
+  PHI-ZAKHOR                     1.6060e+01   4.2007e-02   1.9581e-02
+  PHI-ZAKHOR-KEEP-G3             1.5441e+01   6.8115e-02   0.0000e+00
+  PHI-STATIC                     7.7046e+02   1.1314e-02   6.6799e-01
+  GRID-ZAKHOR                    9.2323e+00   0.0000e+00   1.9581e-02
+  GRID-STATIC                    7.7046e+02   0.0000e+00   6.6799e-01
+  ORACLE-PHI                     1.3774e+01   4.6345e-02   0.0000e+00
+  ORACLE-PHI-G                   1.4093e+01   7.5397e-02   0.0000e+00
+  S2 REGIME events: 0  (expected 0)
+
+§3 S3 STEP ↑ (+8 shells) (spread(std=0.3))
+--------------------------------------------------------------------------------------
+  competitor                            MSE    underflow     overflow
+  PHI-ZAKHOR                     4.3587e+00   4.4991e-02   2.8099e-02
+  PHI-ZAKHOR-KEEP-G3             1.9231e+00   7.4463e-02   0.0000e+00
+  PHI-STATIC                     8.8433e+01   3.0720e-02   4.7156e-01
+  GRID-ZAKHOR                    3.5933e+00   0.0000e+00   2.8099e-02
+  GRID-STATIC                    8.8433e+01   0.0000e+00   4.7156e-01
+  ORACLE-PHI                     1.7219e+00   4.6955e-02   0.0000e+00
+  ORACLE-PHI-G                   1.7605e+00   7.5302e-02   0.0000e+00
+  H8(b) S3↑: REGIME_total=1  near_step=1 (want 1)  PHI-ZAKHOR T=156  G3 T=0 (budget=11) — PASS
+    REGIME: block=2051  0.517→-7.580  signed=-8.097 shells
+  S3↑ mid-return blocks with ghost-fix: 472/4096  (11.5%)
+
+§3 S3 STEP ↓ (−8 shells) (spread(std=0.3))
+--------------------------------------------------------------------------------------
+  competitor                            MSE    underflow     overflow
+  PHI-ZAKHOR                     8.6743e-04   5.4794e-02   9.8763e-03
+  PHI-ZAKHOR-KEEP-G3             8.8133e-04   7.5123e-02   0.0000e+00
+  PHI-STATIC                     8.7325e-04   5.2811e-01   0.0000e+00
+  GRID-ZAKHOR                    5.0916e-04   0.0000e+00   9.8763e-03
+  GRID-STATIC                    2.6441e-03   0.0000e+00   0.0000e+00
+  ORACLE-PHI                     7.7255e-04   4.6677e-02   0.0000e+00
+  ORACLE-PHI-G                   7.8996e-04   7.4883e-02   0.0000e+00
+  H8(a) S3↓: REGIME_total=1  near_step=1 (want 1)  PHI-ZAKHOR T=55  G3 T=2 (budget=11) — PASS
+    REGIME: block=2051  0.832→8.071  signed=+7.239 shells
+  S3↓ mid-return blocks with ghost-fix: 402/4096  (9.8%)
+
+§3 S4 SPIKES (φ^+10 every 256 blocks) (spread(std=0.3))
+--------------------------------------------------------------------------------------
+  competitor                            MSE    underflow     overflow
+  PHI-ZAKHOR                     8.5726e-01   5.9845e-02   8.5983e-03
+  PHI-ZAKHOR-KEEP-G3             1.8185e-03   7.4325e-02   0.0000e+00
+  PHI-STATIC                     8.9515e-02   9.9994e-01   0.0000e+00
+  GRID-ZAKHOR                    9.8100e-01   0.0000e+00   8.5983e-03
+  GRID-STATIC                    6.3400e+01   0.0000e+00   0.0000e+00
+  ORACLE-PHI                     1.8937e-03   4.9877e-02   0.0000e+00
+  ORACLE-PHI-G                   1.9283e-03   7.8354e-02   0.0000e+00
+
+  §3 S4a regression: peak_disp=0.1656 (ref=0.1656) — PASS
+  §3 H8(c) cold-start: REGIME_total=1  early=1 (want 1)  late=0 (want 0) — PASS
+    REGIME: block=4  -9.672→0.648  signed=+10.320 shells
+  §3 H5a displacement: peak=0.000000  all_zero=True  n=15 — PASS
+  §3 H8(d) hallucination: S1=0  S2=0  S4_isolated=0 (all want 0) — PASS
+  H8 overall: PASS
+  §3 S4c collateral (retired threshold 1.2, reported only):
+    PHI-ZAKHOR                   R_normal=1.658  R_s1=1.157  ratio=1.433
+    PHI-ZAKHOR-KEEP-G3           R_normal=1.211  R_s1=1.178  ratio=1.028
+
+  §3 H9 declaration: declared=15  true_spikes=15  N̂=32.1  limit=82.3  truthful=True — PASS
+    Stranger log (first 3): [(257, -10.000000000000002, 98.93895078275305), (513, -10.000000000000002, 97.27602305236233), (769, -10.000000000000002, 100.03673591127787)]
+
+  §2 H12 ghost-collapse (spread(std=0.3)):  exp006=594/4096 (14.5%)  exp007=448/4096 (10.9%)  limit=2% — FALSIFIED
+
+  Three registers (spread(std=0.3), S4):
+    Stranger log: 15 entries.  Mid-return blocks: 448/4096.  Regime log: 1 entries (signed).
+    REGIME block=4  -9.672→0.648  +10.320 shells (quieter)
+
+  §1 H11 geometric promise (spread(std=0.3))  promise_const=0.1910
+  stream   competitor                       mis_rate   uflow_rate   flagged%        verdict
+  S1       PHI-ZAKHOR                     2.5549e-01   4.5170e-02       0.0% (ref, 2.555e-01)
+  S1       PHI-ZAKHOR-KEEP-G3             2.9079e-01   7.2577e-02       6.8%      FALSIFIED
+  S1       PHI-STATIC                     2.7170e-01   5.8372e-02       0.0% (ref, 2.717e-01)
+  S1       ORACLE-PHI                     2.5132e-01   4.5467e-02       0.0% (ref, 2.513e-01)
+  S3↑      PHI-ZAKHOR                     2.6451e-01   4.4235e-02       0.0% (ref, 2.645e-01)
+  S3↑      PHI-ZAKHOR-KEEP-G3             2.9087e-01   7.3224e-02      11.6%      FALSIFIED
+  S3↑      PHI-STATIC                     6.0702e-01   3.0228e-02       0.0% (ref, 6.070e-01)
+  S3↑      ORACLE-PHI                     2.5345e-01   4.6207e-02       0.0% (ref, 2.535e-01)
+  S3↓      PHI-ZAKHOR                     2.6530e-01   5.3871e-02       0.0% (ref, 2.653e-01)
+  S3↓      PHI-ZAKHOR-KEEP-G3             2.9239e-01   7.3481e-02       9.8%      FALSIFIED
+  S3↓      PHI-STATIC                     6.1316e-01   5.0484e-01       0.0% (ref, 6.132e-01)
+  S3↓      ORACLE-PHI                     2.5307e-01   4.5887e-02       0.0% (ref, 2.531e-01)
+  S4       PHI-ZAKHOR                     2.6808e-01   5.8651e-02       0.0% (ref, 2.681e-01)
+  S4       PHI-ZAKHOR-KEEP-G3             2.9103e-01   7.2891e-02      11.3%      FALSIFIED
+  S4       PHI-STATIC                     8.8052e-01   8.8052e-01       0.0% (ref, 8.805e-01)
+  S4       ORACLE-PHI                     2.5483e-01   4.8733e-02       0.0% (ref, 2.548e-01)
+
+================================================================================================
+§3 H2-f REGRESSION (PHI-ZAKHOR ungated, fifth confirmation expected)
+================================================================================================
+     alpha |   dir |   T_meas |   T_form |   f_shells |   err_frac | verdict
+    0.0625 |    UP |       38 |     41.0 |     0.6159 |      0.080 | PASS
+    0.0625 |    DN |       13 |     13.6 |     3.4129 |      0.049 | PASS
+    0.0156 |    UP |      159 |    157.9 |     0.6781 |      0.007 | PASS
+    0.0156 |    DN |       56 |     56.8 |     3.2934 |      0.014 | PASS
+    0.0039 |    UP |      591 |    591.8 |     0.7927 |      0.001 | PASS
+    0.0039 |    DN |      225 |    226.4 |     3.3043 |      0.006 | PASS
+  H2-f regression (fifth confirmation): PASS
+
+================================================================================================
+§1 H11 GEOMETRIC PROMISE VERDICT SUMMARY
+================================================================================================
+  (Checking G3 only; ORACLE-PHI included as metric-defect indicator)
+  stream         peaked       spread
+  S1          FALSIFIED    FALSIFIED
+  S3↑         FALSIFIED    FALSIFIED
+  S3↓         FALSIFIED    FALSIFIED
+  S4          FALSIFIED    FALSIFIED
+
+  H11 (G3 all streams, both distributions): FALSIFIED
+  ORACLE-PHI mis-rate (metric-defect indicator): 2.5327e-01
+  MECHANISM: For values near the midpoint between adjacent shells,
+    |v − q| = s_j×(1−1/φ)/2 but promise(v) = (1−1/φ)/2×v < s_j×(1−1/φ)/2
+    (since v < s_j). The criterion is violated for ~25% of
+    values in any phi-codebook, regardless of hi calibration.
+    ORACLE-PHI has perfect calibration; its violation rate measures the
+    structural floor. H11: METRIC-DEFECT.
+
+================================================================================================
+§2 H12 GHOST-COLLAPSE VERDICT
+================================================================================================
+  check                              peaked       spread
+  H12-coverage                    FALSIFIED    FALSIFIED
+  H12 overall: FALSIFIED
+
+================================================================================================
+VERDICT SUMMARY — exp007
+================================================================================================
+  check                              peaked       spread
+  regression                           PASS         PASS
+  H5a                                  PASS         PASS
+  S4a-reg                              PASS         PASS
+  H8a                                  PASS         PASS
+  H8b                                  PASS         PASS
+  H8ab                                 PASS         PASS
+  H8c                                  PASS         PASS
+  H8d                                  PASS         PASS
+  H8                                   PASS         PASS
+  H9                                   PASS         PASS
+  H12-coverage                    FALSIFIED    FALSIFIED
+  H11-S1                          FALSIFIED    FALSIFIED
+  H11-S3↑                         FALSIFIED    FALSIFIED
+  H11-S3↓                         FALSIFIED    FALSIFIED
+  H11-S4                          FALSIFIED    FALSIFIED
+  H2f-reg                              PASS
+  H11                          METRIC-DEFECT
+  H12                             FALSIFIED
+
+  H0-id: RETIRED (two-strike rule, exp004).
+  H10 metric family: RETIRED (METRIC-DEFECT, exp006).
+  Verdicts: PASS / FALSIFIED / METRIC-DEFECT — no fourth category.
+
+================================================================================================
+§5 CLOSING CLAUSE
+================================================================================================
+  H11: METRIC-DEFECT. The geometric criterion as stated is structurally
+  unreachable (violated by ~15–20% of values in any phi-codebook by
+  geometry alone, independent of hi calibration or gating).
+  Per §5: the criterion either measures the promise or the promise is wrong.
+  This verdict goes in Architecture Note 02 as-is.
+  Per §5 closing clause: H11 METRIC-DEFECT is NOT a FALSIFICATION.
+  One targeted follow-up is permitted for ghost-fix mechanics (§2) only;
+  the geometric criterion (§1) is not restated.
+  Steward's decision required: CLOSE on METRIC-DEFECT or open ghost-fix follow-up.
+
+================================================================================================
+REPRODUCIBILITY
+  run1=8c7757cb17bc6298  run2=8c7757cb17bc6298  PASS (bit-identical)
+  SHA-256: 8c7757cb17bc62984cfed2466e8d57ad848afc4cf8d1cb3201e22eb1c33d0167
+
+  Save dated output to research/results/exp007_<YYYY-MM-DD>.txt.

@@ -1,0 +1,259 @@
+Zakhor Memory Architecture :: Experiment 003 — Identity, Recovery, and the Declared Stranger
+==========================================================================================
+  Pre-registered thresholds frozen 2026-07-11. See docs/exp003-pre-registration.md.
+  Carried-over: 4096×64 blocks, 16 levels, alpha=1/64, seed=1618033
+  New: PHI-ZAKHOR-KEEP | H0-id | H2-r | S4a/b/c | honesty metrics
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Distribution: peaked (std=0.15)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+§5 S1 STATIONARY (peaked (std=0.15))
+------------------------------------------------------------------------------
+  competitor                      MSE    underflow     overflow
+  PHI-ZAKHOR               4.4145e-04   4.6104e-02   1.0456e-02
+  PHI-ZAKHOR-KEEP          4.0333e-04   4.6594e-02   0.0000e+00
+  PHI-STATIC               4.3401e-04   6.5262e-02   2.2125e-04
+  GRID-ZAKHOR              2.6065e-04   0.0000e+00   1.0456e-02
+  GRID-STATIC              4.4654e-04   0.0000e+00   2.2125e-04
+  ORACLE-PHI               3.8741e-04   4.6463e-02   0.0000e+00
+  Regression gate: PHI-ZAKHOR 4.4145e-04  PHI-ZAKHOR-KEEP 4.0333e-04 (KEEP≤PHI-ZAKHOR+5%) — PASS
+
+§1 H0-id SHELL IDENTITY (peaked (std=0.15))
+------------------------------------------------------------------------------------------
+     m |  φ-consist |   φ-feas |  φ-correct |  uni-consist |   uni-feas | safe_r | verdict
+     1 |     0.9150 |   1.0000 |     0.9150 |       0.2224 |     0.2224 | 0.0172 | FALSIFIED
+     2 |     0.9150 |   1.0000 |     0.9150 |       0.1482 |     0.1482 | 0.0172 | FALSIFIED
+     4 |     0.6780 |   0.7629 |     0.8886 |       0.1887 |     0.1887 | 0.0172 | FALSIFIED
+
+  Return feasibility on S2↑: φ=0.6082 uni=0.8262  (threshold φ≥0.80) — FALSIFIED
+  H0-id overall: FALSIFIED  (FALSIFIED if φ fails any threshold or grid matches φ within 0.05)
+
+S2 SLOW DRIFT ↑ (φ^+12) (peaked (std=0.15))
+------------------------------------------------------------------------------
+  competitor                      MSE    underflow     overflow
+  PHI-ZAKHOR               4.1171e+00   4.2164e-02   1.9146e-02
+  PHI-ZAKHOR-KEEP          3.4025e+00   4.2998e-02   0.0000e+00
+  PHI-STATIC               1.9241e+02   1.2165e-02   6.5466e-01
+  GRID-ZAKHOR              2.4164e+00   0.0000e+00   1.9146e-02
+  GRID-STATIC              1.9241e+02   0.0000e+00   6.5466e-01
+  ORACLE-PHI               3.4434e+00   4.6597e-02   0.0000e+00
+
+§2 H2-r ORACLE-RELATIVE RECOVERY (peaked (std=0.15))
+
+S3 STEP ↑ (+8 shells) (peaked (std=0.15))
+------------------------------------------------------------------------------
+  competitor                      MSE    underflow     overflow
+  PHI-ZAKHOR               1.0999e+00   4.5181e-02   2.7725e-02
+  PHI-ZAKHOR-KEEP          4.1594e-01   4.6149e-02   0.0000e+00
+  PHI-STATIC               2.2093e+01   3.1399e-02   4.7123e-01
+  GRID-ZAKHOR              9.0932e-01   0.0000e+00   2.7725e-02
+  GRID-STATIC              2.2093e+01   0.0000e+00   4.7123e-01
+  ORACLE-PHI               4.2984e-01   4.7138e-02   0.0000e+00
+  Recovery (budget 128 blocks):
+    competitor                R_bar   recovery   max_R_post
+    PHI-ZAKHOR                1.161        156        72.42
+    PHI-ZAKHOR-KEEP           1.085          0         3.01
+    GRID-ZAKHOR               0.688        165        72.42
+  H2-r step-UP: FALSIFIED (PHI-ZAKHOR recovery=156, budget=128)
+
+S3 STEP ↓ (−8 shells) (peaked (std=0.15))
+------------------------------------------------------------------------------
+  competitor                      MSE    underflow     overflow
+  PHI-ZAKHOR               2.2206e-04   5.5031e-02   9.5825e-03
+  PHI-ZAKHOR-KEEP          2.0167e-04   5.5474e-02   0.0000e+00
+  PHI-STATIC               2.2137e-04   5.3188e-01   1.4114e-04
+  GRID-ZAKHOR              1.3299e-04   0.0000e+00   9.5825e-03
+  GRID-STATIC              7.9626e-04   0.0000e+00   1.4114e-04
+  ORACLE-PHI               1.9314e-04   4.6932e-02   0.0000e+00
+  Recovery (budget 8 blocks, pred ~0):
+    PHI-ZAKHOR                1.149         55
+    GRID-ZAKHOR               0.682        154
+  H2-r step-DOWN: FALSIFIED (recovery=55, budget=8)
+  Asymmetry: step-UP recovery=156, step-DOWN recovery=55 (prediction on record: DOWN~0, UP~1/alpha=64)
+
+§3 S4 SPIKES (φ^+10 every 256 blocks) (peaked (std=0.15))
+------------------------------------------------------------------------------
+  competitor                      MSE    underflow     overflow
+  PHI-ZAKHOR               8.6081e-01   6.2111e-02   8.1940e-03
+  PHI-ZAKHOR-KEEP          6.4503e-04   6.2502e-02   0.0000e+00
+  PHI-STATIC               2.2418e-02   9.9994e-01   0.0000e+00
+  GRID-ZAKHOR              9.7826e-01   0.0000e+00   8.1940e-03
+  GRID-STATIC              6.5291e+01   0.0000e+00   0.0000e+00
+  ORACLE-PHI               4.7449e-04   5.0152e-02   0.0000e+00
+
+  S4a state integrity: peak_disp=0.1880 (≤0.25), all_recovered=True, max_recovery=206 — PASS
+  S4b spike fidelity (spike-block-MSE / normal-block-MSE, lower = spike well-handled):
+    PHI-ZAKHOR              327450.01×
+    PHI-ZAKHOR-KEEP              2.31×
+    PHI-STATIC                   1.04×
+    GRID-ZAKHOR               2181.95×
+    GRID-STATIC                  0.98×
+    ORACLE-PHI                  60.31×
+  S4c collateral (normal-block R / S1 R, threshold ≤1.2):
+    PHI-ZAKHOR             R_normal=1.792  R_s1=1.175  ratio=1.525
+    PHI-ZAKHOR-KEEP        R_normal=1.714  R_s1=1.079  ratio=1.588
+    GRID-ZAKHOR            R_normal=292.927  R_s1=0.709  ratio=413.027
+  S4c verdict: FALSIFIED
+
+§4 HONESTY METRICS (peaked (std=0.15))
+  true spike fraction: 6.10e-05  H3 max declared: 1.05×true = 6.41e-05
+  competitor                decl_rate  silent_err_rate
+  PHI-ZAKHOR               0.0000e+00       1.6159e-01
+  PHI-ZAKHOR-KEEP          8.1940e-03       1.5512e-01
+  PHI-STATIC               0.0000e+00       9.2580e-01
+  GRID-ZAKHOR              0.0000e+00       2.6659e-01
+  GRID-STATIC              0.0000e+00       9.9994e-01
+  ORACLE-PHI               0.0000e+00       0.0000e+00
+
+  H3: silent_err FALSIFIED | over-declare FALSIFIED | collateral FALSIFIED | OVERALL FALSIFIED
+  Note: PHI-STATIC silent_error_rate expected catastrophic (9.258e-01) — this is the metric doing its job.
+
+  Stranger log: 2148 entries. First 3:
+    block=    1  shell_coord= -10.000  overshoot=0.00×
+    block=  217  shell_coord=   1.496  overshoot=0.05×
+    block=  226  shell_coord=   1.456  overshoot=0.10×
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Distribution: spread (std=0.3)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+§5 S1 STATIONARY (spread (std=0.3))
+------------------------------------------------------------------------------
+  competitor                      MSE    underflow     overflow
+  PHI-ZAKHOR               1.7323e-03   4.5933e-02   1.0750e-02
+  PHI-ZAKHOR-KEEP          1.6110e-03   4.6434e-02   0.0000e+00
+  PHI-STATIC               1.7139e-03   5.9399e-02   0.0000e+00
+  GRID-ZAKHOR              1.0052e-03   0.0000e+00   1.0750e-02
+  GRID-STATIC              1.4806e-03   0.0000e+00   0.0000e+00
+  ORACLE-PHI               1.5486e-03   4.6219e-02   0.0000e+00
+  Regression gate: PHI-ZAKHOR 1.7323e-03  PHI-ZAKHOR-KEEP 1.6110e-03 (KEEP≤PHI-ZAKHOR+5%) — PASS
+
+§1 H0-id SHELL IDENTITY (spread (std=0.3))
+------------------------------------------------------------------------------------------
+     m |  φ-consist |   φ-feas |  φ-correct |  uni-consist |   uni-feas | safe_r | verdict
+     1 |     0.9150 |   1.0000 |     0.9150 |       0.2224 |     0.2224 | 0.0172 | FALSIFIED
+     2 |     0.9150 |   1.0000 |     0.9150 |       0.1482 |     0.1482 | 0.0172 | FALSIFIED
+     4 |     0.6780 |   0.7629 |     0.8886 |       0.1887 |     0.1887 | 0.0172 | FALSIFIED
+
+  Return feasibility on S2↑: φ=0.5037 uni=0.8210  (threshold φ≥0.80) — FALSIFIED
+  H0-id overall: FALSIFIED  (FALSIFIED if φ fails any threshold or grid matches φ within 0.05)
+
+S2 SLOW DRIFT ↑ (φ^+12) (spread (std=0.3))
+------------------------------------------------------------------------------
+  competitor                      MSE    underflow     overflow
+  PHI-ZAKHOR               1.6060e+01   4.2007e-02   1.9581e-02
+  PHI-ZAKHOR-KEEP          1.3582e+01   4.2858e-02   0.0000e+00
+  PHI-STATIC               7.7046e+02   1.1314e-02   6.6799e-01
+  GRID-ZAKHOR              9.2323e+00   0.0000e+00   1.9581e-02
+  GRID-STATIC              7.7046e+02   0.0000e+00   6.6799e-01
+  ORACLE-PHI               1.3774e+01   4.6345e-02   0.0000e+00
+
+§2 H2-r ORACLE-RELATIVE RECOVERY (spread (std=0.3))
+
+S3 STEP ↑ (+8 shells) (spread (std=0.3))
+------------------------------------------------------------------------------
+  competitor                      MSE    underflow     overflow
+  PHI-ZAKHOR               4.3587e+00   4.4991e-02   2.8099e-02
+  PHI-ZAKHOR-KEEP          1.6605e+00   4.5976e-02   0.0000e+00
+  PHI-STATIC               8.8433e+01   3.0720e-02   4.7156e-01
+  GRID-ZAKHOR              3.5933e+00   0.0000e+00   2.8099e-02
+  GRID-STATIC              8.8433e+01   0.0000e+00   4.7156e-01
+  ORACLE-PHI               1.7219e+00   4.6955e-02   0.0000e+00
+  Recovery (budget 128 blocks):
+    competitor                R_bar   recovery   max_R_post
+    PHI-ZAKHOR                1.149        156        72.45
+    PHI-ZAKHOR-KEEP           1.084          0         2.90
+    GRID-ZAKHOR               0.673        165        72.45
+  H2-r step-UP: FALSIFIED (PHI-ZAKHOR recovery=156, budget=128)
+
+S3 STEP ↓ (−8 shells) (spread (std=0.3))
+------------------------------------------------------------------------------
+  competitor                      MSE    underflow     overflow
+  PHI-ZAKHOR               8.6743e-04   5.4794e-02   9.8763e-03
+  PHI-ZAKHOR-KEEP          8.0474e-04   5.5249e-02   0.0000e+00
+  PHI-STATIC               8.7325e-04   5.2811e-01   0.0000e+00
+  GRID-ZAKHOR              5.0916e-04   0.0000e+00   9.8763e-03
+  GRID-STATIC              2.6441e-03   0.0000e+00   0.0000e+00
+  ORACLE-PHI               7.7255e-04   4.6677e-02   0.0000e+00
+  Recovery (budget 8 blocks, pred ~0):
+    PHI-ZAKHOR                1.142         55
+    GRID-ZAKHOR               0.672        154
+  H2-r step-DOWN: FALSIFIED (recovery=55, budget=8)
+  Asymmetry: step-UP recovery=156, step-DOWN recovery=55 (prediction on record: DOWN~0, UP~1/alpha=64)
+
+§3 S4 SPIKES (φ^+10 every 256 blocks) (spread (std=0.3))
+------------------------------------------------------------------------------
+  competitor                      MSE    underflow     overflow
+  PHI-ZAKHOR               8.5726e-01   5.9845e-02   8.5983e-03
+  PHI-ZAKHOR-KEEP          2.3876e-03   6.0252e-02   0.0000e+00
+  PHI-STATIC               8.9515e-02   9.9994e-01   0.0000e+00
+  GRID-ZAKHOR              9.8100e-01   0.0000e+00   8.5983e-03
+  GRID-STATIC              6.3400e+01   0.0000e+00   0.0000e+00
+  ORACLE-PHI               1.8937e-03   4.9877e-02   0.0000e+00
+
+  S4a state integrity: peak_disp=0.1656 (≤0.25), all_recovered=True, max_recovery=240 — PASS
+  S4b spike fidelity (spike-block-MSE / normal-block-MSE, lower = spike well-handled):
+    PHI-ZAKHOR               88756.01×
+    PHI-ZAKHOR-KEEP              2.49×
+    PHI-STATIC                   1.03×
+    GRID-ZAKHOR               2001.55×
+    GRID-STATIC                  0.98×
+    ORACLE-PHI                  60.01×
+  S4c collateral (normal-block R / S1 R, threshold ≤1.2):
+    PHI-ZAKHOR             R_normal=1.658  R_s1=1.157  ratio=1.433
+    PHI-ZAKHOR-KEEP        R_normal=1.598  R_s1=1.080  ratio=1.480
+    GRID-ZAKHOR            R_normal=78.976  R_s1=0.687  ratio=114.886
+  S4c verdict: FALSIFIED
+
+§4 HONESTY METRICS (spread (std=0.3))
+  true spike fraction: 6.10e-05  H3 max declared: 1.05×true = 6.41e-05
+  competitor                decl_rate  silent_err_rate
+  PHI-ZAKHOR               0.0000e+00       1.6136e-01
+  PHI-ZAKHOR-KEEP          8.5983e-03       1.5456e-01
+  PHI-STATIC               0.0000e+00       9.2623e-01
+  GRID-ZAKHOR              0.0000e+00       2.6524e-01
+  GRID-STATIC              0.0000e+00       9.9994e-01
+  ORACLE-PHI               0.0000e+00       0.0000e+00
+
+  H3: silent_err FALSIFIED | over-declare FALSIFIED | collateral FALSIFIED | OVERALL FALSIFIED
+  Note: PHI-STATIC silent_error_rate expected catastrophic (9.262e-01) — this is the metric doing its job.
+
+  Stranger log: 2254 entries. First 3:
+    block=    1  shell_coord= -10.000  overshoot=0.00×
+    block=  216  shell_coord=   0.181  overshoot=0.02×
+    block=  217  shell_coord=   0.056  overshoot=0.08×
+
+==========================================================================================
+ALPHA SWEEP (H2-r recovery on S3↑ — peaked distribution only)
+==========================================================================================
+     alpha | competitor             |       S2 MSE |   S3 R_bar |   recovery
+    0.0625 | PHI-ZAKHOR             |   4.0897e+00 |      1.190 |         43
+    0.0625 | GRID-ZAKHOR            |   2.4092e+00 |      0.738 |         43
+    0.0156 | PHI-ZAKHOR             |   4.2682e+00 |      1.189 |        141
+    0.0156 | GRID-ZAKHOR            |   2.4873e+00 |      0.735 |        160
+    0.0039 | PHI-ZAKHOR             |   6.9235e+00 |      1.190 |        658
+    0.0039 | GRID-ZAKHOR            |   5.3268e+00 |      0.733 |        658
+
+==========================================================================================
+VERDICT SUMMARY
+==========================================================================================
+  check                        peaked     spread
+  regression                     PASS       PASS
+  H0id                      FALSIFIED  FALSIFIED
+  H0id-feas                 FALSIFIED  FALSIFIED
+  H2r-up                    FALSIFIED  FALSIFIED
+  H2r-dn                    FALSIFIED  FALSIFIED
+  S4a                            PASS       PASS
+  S4c                       FALSIFIED  FALSIFIED
+  H3                        FALSIFIED  FALSIFIED
+
+  Verdicts are PASS / FALSIFIED / METRIC-DEFECT (no fourth category).
+  All exp002 verdicts stand as recorded.
+  Preserve falsified results in research/results/ per project convention.
+
+==========================================================================================
+REPRODUCIBILITY
+  run1=7b333a539d740514  run2=7b333a539d740514  PASS (bit-identical)
+
+  Log dated output to research/results/exp003_<YYYY-MM-DD>.txt.

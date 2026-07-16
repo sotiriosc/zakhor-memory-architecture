@@ -1,0 +1,203 @@
+Zakhor Memory Architecture :: Experiment 002 — Scale Memory (Living hi)
+========================================================================
+  4096 blocks × 64 values | 16 levels | alpha=0.015625 (1/64) | SEED=1618033
+  Competitors: PHI-ZAKHOR | PHI-STATIC | GRID-ZAKHOR | GRID-STATIC | ORACLE-PHI
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Distribution: peaked (std=0.15)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+S1 STATIONARY (peaked (std=0.15))
+------------------------------------------------------------------------
+  competitor                MSE    underflow     overflow
+  PHI-ZAKHOR         4.4145e-04   4.6104e-02   1.0456e-02
+  PHI-STATIC         4.3401e-04   6.5262e-02   2.2125e-04
+  GRID-ZAKHOR        2.6065e-04   0.0000e+00   1.0456e-02
+  GRID-STATIC        4.4654e-04   0.0000e+00   2.2125e-04
+  ORACLE-PHI         3.8741e-04   4.6463e-02   0.0000e+00
+  S1 sanity: PHI-ZAKHOR 4.4145e-04 vs PHI-STATIC 4.3401e-04 (ratio 0.0169) — PASS
+
+S2 SLOW DRIFT ↑ (φ^+12) (peaked (std=0.15))
+------------------------------------------------------------------------
+  competitor                MSE    underflow     overflow
+  PHI-ZAKHOR         4.1171e+00   4.2164e-02   1.9146e-02
+  PHI-STATIC         1.9241e+02   1.2165e-02   6.5466e-01
+  GRID-ZAKHOR        2.4164e+00   0.0000e+00   1.9146e-02
+  GRID-STATIC        1.9241e+02   0.0000e+00   6.5466e-01
+  ORACLE-PHI         3.4434e+00   4.6597e-02   0.0000e+00
+
+S2 SLOW DRIFT ↓ (φ^−12) (peaked (std=0.15))
+------------------------------------------------------------------------
+  competitor                MSE    underflow     overflow
+  PHI-ZAKHOR         3.8538e+00   5.0198e-02   5.1689e-03
+  PHI-STATIC         5.4171e+00   6.4436e-01   3.8147e-06
+  GRID-ZAKHOR        2.4219e+00   0.0000e+00   5.1689e-03
+  GRID-STATIC        7.1321e+01   0.0000e+00   3.8147e-06
+  ORACLE-PHI         3.4134e+00   4.6474e-02   0.0000e+00
+  H0 (S2↑): φ-memory advantage=0.9786 grid-memory advantage=0.9874 — FAIL
+  H1 (drift tracking): PHI-ZAKHOR 4.1171e+00 vs PHI-STATIC 1.9241e+02 — PASS
+
+S3 STEP ↑ (+8 shells) (peaked (std=0.15))
+------------------------------------------------------------------------
+  competitor                MSE    underflow     overflow
+  PHI-ZAKHOR         1.0999e+00   4.5181e-02   2.7725e-02
+  PHI-STATIC         2.2093e+01   3.1399e-02   4.7123e-01
+  GRID-ZAKHOR        9.0932e-01   0.0000e+00   2.7725e-02
+  GRID-STATIC        2.2093e+01   0.0000e+00   4.7123e-01
+  ORACLE-PHI         4.2984e-01   4.7138e-02   0.0000e+00
+  S3↑ recovery (predicted ~64 blocks):  PHI-ZAKHOR=>N  PHI-STATIC=>N  GRID-ZAKHOR=>N
+  H2 (step cost ↑): recovery=None blocks — FAIL
+
+S3 STEP ↓ (−8 shells) (peaked (std=0.15))
+------------------------------------------------------------------------
+  competitor                MSE    underflow     overflow
+  PHI-ZAKHOR         2.2206e-04   5.5031e-02   9.5825e-03
+  PHI-STATIC         2.2137e-04   5.3188e-01   1.4114e-04
+  GRID-ZAKHOR        1.3299e-04   0.0000e+00   9.5825e-03
+  GRID-STATIC        7.9626e-04   0.0000e+00   1.4114e-04
+  ORACLE-PHI         1.9314e-04   4.6932e-02   0.0000e+00
+  S3↓ recovery:  PHI-ZAKHOR=0  GRID-ZAKHOR=1
+
+S4 SPIKES (φ^+10 every 256 blocks) (peaked (std=0.15))
+------------------------------------------------------------------------
+  competitor                MSE    underflow     overflow
+  PHI-ZAKHOR         8.6081e-01   6.2111e-02   8.1940e-03
+  PHI-STATIC         2.2418e-02   9.9994e-01   0.0000e+00
+  GRID-ZAKHOR        9.7826e-01   0.0000e+00   8.1940e-03
+  GRID-STATIC        6.5291e+01   0.0000e+00   0.0000e+00
+  ORACLE-PHI         4.7449e-04   5.0152e-02   0.0000e+00
+  S4 spike tolerance: PHI-ZAKHOR 8.6081e-01 vs PHI-STATIC 2.2418e-02 — FAIL
+
+  S5 REAL PROXY: deferred (no trained-weight tensor in repo test assets).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Distribution: spread (std=0.3)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+S1 STATIONARY (spread (std=0.3))
+------------------------------------------------------------------------
+  competitor                MSE    underflow     overflow
+  PHI-ZAKHOR         1.7323e-03   4.5933e-02   1.0750e-02
+  PHI-STATIC         1.7139e-03   5.9399e-02   0.0000e+00
+  GRID-ZAKHOR        1.0052e-03   0.0000e+00   1.0750e-02
+  GRID-STATIC        1.4806e-03   0.0000e+00   0.0000e+00
+  ORACLE-PHI         1.5486e-03   4.6219e-02   0.0000e+00
+  S1 sanity: PHI-ZAKHOR 1.7323e-03 vs PHI-STATIC 1.7139e-03 (ratio 0.0106) — PASS
+
+S2 SLOW DRIFT ↑ (φ^+12) (spread (std=0.3))
+------------------------------------------------------------------------
+  competitor                MSE    underflow     overflow
+  PHI-ZAKHOR         1.6060e+01   4.2007e-02   1.9581e-02
+  PHI-STATIC         7.7046e+02   1.1314e-02   6.6799e-01
+  GRID-ZAKHOR        9.2323e+00   0.0000e+00   1.9581e-02
+  GRID-STATIC        7.7046e+02   0.0000e+00   6.6799e-01
+  ORACLE-PHI         1.3774e+01   4.6345e-02   0.0000e+00
+
+S2 SLOW DRIFT ↓ (φ^−12) (spread (std=0.3))
+------------------------------------------------------------------------
+  competitor                MSE    underflow     overflow
+  PHI-ZAKHOR         1.5148e+01   5.0064e-02   5.3368e-03
+  PHI-STATIC         2.1655e+01   6.4437e-01   0.0000e+00
+  GRID-ZAKHOR        9.3769e+00   0.0000e+00   5.3368e-03
+  GRID-STATIC        2.8527e+02   0.0000e+00   0.0000e+00
+  ORACLE-PHI         1.3656e+01   4.6207e-02   0.0000e+00
+  H0 (S2↑): φ-memory advantage=0.9792 grid-memory advantage=0.9880 — FAIL
+  H1 (drift tracking): PHI-ZAKHOR 1.6060e+01 vs PHI-STATIC 7.7046e+02 — PASS
+
+S3 STEP ↑ (+8 shells) (spread (std=0.3))
+------------------------------------------------------------------------
+  competitor                MSE    underflow     overflow
+  PHI-ZAKHOR         4.3587e+00   4.4991e-02   2.8099e-02
+  PHI-STATIC         8.8433e+01   3.0720e-02   4.7156e-01
+  GRID-ZAKHOR        3.5933e+00   0.0000e+00   2.8099e-02
+  GRID-STATIC        8.8433e+01   0.0000e+00   4.7156e-01
+  ORACLE-PHI         1.7219e+00   4.6955e-02   0.0000e+00
+  S3↑ recovery (predicted ~64 blocks):  PHI-ZAKHOR=>N  PHI-STATIC=>N  GRID-ZAKHOR=>N
+  H2 (step cost ↑): recovery=None blocks — FAIL
+
+S3 STEP ↓ (−8 shells) (spread (std=0.3))
+------------------------------------------------------------------------
+  competitor                MSE    underflow     overflow
+  PHI-ZAKHOR         8.6743e-04   5.4794e-02   9.8763e-03
+  PHI-STATIC         8.7325e-04   5.2811e-01   0.0000e+00
+  GRID-ZAKHOR        5.0916e-04   0.0000e+00   9.8763e-03
+  GRID-STATIC        2.6441e-03   0.0000e+00   0.0000e+00
+  ORACLE-PHI         7.7255e-04   4.6677e-02   0.0000e+00
+  S3↓ recovery:  PHI-ZAKHOR=0  GRID-ZAKHOR=1
+
+S4 SPIKES (φ^+10 every 256 blocks) (spread (std=0.3))
+------------------------------------------------------------------------
+  competitor                MSE    underflow     overflow
+  PHI-ZAKHOR         8.5726e-01   5.9845e-02   8.5983e-03
+  PHI-STATIC         8.9515e-02   9.9994e-01   0.0000e+00
+  GRID-ZAKHOR        9.8100e-01   0.0000e+00   8.5983e-03
+  GRID-STATIC        6.3400e+01   0.0000e+00   0.0000e+00
+  ORACLE-PHI         1.8937e-03   4.9877e-02   0.0000e+00
+  S4 spike tolerance: PHI-ZAKHOR 8.5726e-01 vs PHI-STATIC 8.9515e-02 — FAIL
+
+  S5 REAL PROXY: deferred (no trained-weight tensor in repo test assets).
+
+H0 SHELL-CONSISTENCY (φ automorphism, n=2048)
+----------------------------------------------------------------
+    drift (shells) |   φ-codebook |      uniform
+                 1 |       0.9117 |       0.2188
+                 2 |       0.9100 |       0.1270
+                 4 |       0.6985 |       0.1919
+                 8 |       0.0000 |       0.0000
+  (φ near 1.0 confirms automorphism; uniform has no such structure)
+
+========================================================================
+ALPHA SWEEP (S2↑ + S3↑; one value, not tuned per-stream)
+========================================================================
+
+ALPHA SWEEP (S2↑ + S3↑, peaked std=0.15)
+--------------------------------------------------------------------------------
+     alpha | competitor     |       S2 MSE |       S3 MSE |    S3 recovery
+    0.0625 | PHI-ZAKHOR     |   4.0897e+00 |   6.4484e-01 |      >N_BLOCKS
+    0.0625 | GRID-ZAKHOR    |   2.4092e+00 |   4.5029e-01 |      >N_BLOCKS
+    0.0156 | PHI-ZAKHOR     |   4.2682e+00 |   1.0979e+00 |      >N_BLOCKS
+    0.0156 | GRID-ZAKHOR    |   2.4873e+00 |   9.0959e-01 |      >N_BLOCKS
+    0.0039 | PHI-ZAKHOR     |   6.9235e+00 |   2.9000e+00 |      >N_BLOCKS
+    0.0039 | GRID-ZAKHOR    |   5.3268e+00 |   2.7377e+00 |      >N_BLOCKS
+
+ALPHA SWEEP (S2↑ + S3↑, spread std=0.3)
+--------------------------------------------------------------------------------
+     alpha | competitor     |       S2 MSE |       S3 MSE |    S3 recovery
+    0.0625 | PHI-ZAKHOR     |   1.5921e+01 |   2.5378e+00 |      >N_BLOCKS
+    0.0625 | GRID-ZAKHOR    |   9.1598e+00 |   1.7555e+00 |      >N_BLOCKS
+    0.0156 | PHI-ZAKHOR     |   1.6597e+01 |   4.3511e+00 |      >N_BLOCKS
+    0.0156 | GRID-ZAKHOR    |   9.4639e+00 |   3.5948e+00 |      >N_BLOCKS
+    0.0039 | PHI-ZAKHOR     |   2.7252e+01 |   1.1565e+01 |      >N_BLOCKS
+    0.0039 | GRID-ZAKHOR    |   2.0896e+01 |   1.0914e+01 |      >N_BLOCKS
+
+========================================================================
+VERDICT
+========================================================================
+  check                    peaked     spread
+  S1                         PASS       PASS
+  H0                         FAIL       FAIL
+  H1                         PASS       PASS
+  H2up                       FAIL       FAIL
+  S4                         FAIL       FAIL
+
+  OVERALL peaked: FAIL
+  OVERALL spread: FAIL
+
+  H0: φ-codebook automorphism under scale drift — see shell-
+      consistency table above; PASS iff φ fraction near 1.0.
+  H1: zakhor scale tracks drift — PASS iff PHI-ZAKHOR < PHI-STATIC
+      on S2.  Failure means the integrator is too sluggish.
+  H2: step damage bounded — PASS iff recovery ≤ ~3×(1/alpha).
+      If FAIL on spread but PASS on peaked, the memory holds well
+      but forgets too slowly for spread distributions — record both.
+
+  Preserve falsified results in research/results/ per convention.
+
+========================================================================
+REPRODUCIBILITY
+========================================================================
+  run1=03f8aa98aff65288  run2=03f8aa98aff65288
+  PASS (bit-identical re-run)
+
+  Log dated output to research/results/exp002_<YYYY-MM-DD>.txt.
+  Initial and final scale_state logged to stdout above per stream.

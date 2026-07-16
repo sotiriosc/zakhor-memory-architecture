@@ -1,0 +1,38 @@
+exp104 — Independent In-Repo Reproduction
+================================================================================
+Environment: sklearn 1.7.2, numpy 2.2.6 (this repository, 2026-07-16).
+Original (external sandbox) environment: sklearn 1.8.0, numpy 2.4.4.
+Script: research/exp104_full.py (byte-identical to staged/external artifact).
+Note: exp104_full.py imports exp103_bfp, which imports exp101_contact; both
+run their own module-level double-run checks as a side effect of import.
+All three hashes (exp101, exp103, exp104) are verified in the same process.
+
+Reproduction method: script invoked as a separate process TWICE.
+  invocation 1: HASH 72f15dc0cc00eae6 (exp101, via import) — identical: True
+                HASH 2d47a95618b92c95 (exp103, via import) — identical: True
+                HASH 200e9e3c78214f50 (exp104, own)         — identical: True
+  invocation 2: same three hashes, same results.
+  invocation 1 vs invocation 2 (full stdout diff): IDENTICAL
+
+Own-environment double-run: PASS (bit-identical, as required).
+
+Comparison to original external-sandbox hash:
+  original:  200e9e3c78214f50
+  in-repo:   200e9e3c78214f50
+  MATCH: EXACT (bit-identical across environments).
+
+Headline-number tolerance check (±0.5% absolute required; delta shown):
+  fp64_clean:               0.9699666  vs recorded 0.9700  (Δ 0.0000)
+  weights_only_quant_clean: 0.9699666  vs recorded 0.9700  (Δ 0.0000)
+    -> weights-only quantization cost: zero (exact match, both distributions)
+  CLEAN/ZAKHOR acc:  0.9699666  vs recorded 0.9700 = FP64        (Δ 0.0000)
+  CLEAN/DELAYED acc: 0.9699666  vs recorded 0.9700 = FP64        (Δ 0.0000)
+  CLEAN/ORACLE acc:  0.9699666  vs recorded 0.9700 = FP64        (Δ 0.0000)
+  SPIKE/ZAKHOR acc_normal:  0.9702414 vs recorded 0.9702         (Δ 0.0000)
+  SPIKE/ORACLE acc_normal:  0.9702414 vs recorded 0.9702 = ZAKHOR (Δ 0.0000)
+  SPIKE/DELAYED acc_normal: 0.8455924 vs recorded 0.8456         (Δ 0.0000)
+Riders: displacement ≡ 0 (exact); 17 strangers per hidden layer on SPIKE
+  (exact); zero regime events on CLEAN (exact).
+
+VERDICT: reproduction PASS. All headline numbers within tolerance
+(effectively exact). Nothing adjusted.

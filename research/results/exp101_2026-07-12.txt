@@ -1,0 +1,222 @@
+================================================================================
+PROVENANCE
+================================================================================
+Executed externally: Claude (Anthropic), external sandbox, 2026-07-12.
+Environment: sklearn 1.8.0, numpy 2.4.4.
+Original double-run hash (from external execution, recorded below verbatim
+and preserved unmodified from the source artifact): 72f15dc0cc00eae6.
+Ported into repository research/exp101_contact.py (byte-identical to the
+staged artifact) and independently re-executed in this repository's
+environment; see research/results/exp101_2026-07-12_inrepo.txt for the
+in-repo double-run hash and headline-number reproduction check.
+================================================================================
+ORIGINAL ARTIFACT (verbatim below this line)
+================================================================================
+{
+ "fp64_clean_acc": 0.9699666295884316,
+ "CLEAN/ZAKHOR": {
+  "acc": 0.9610678531701891,
+  "match_fp64": 0.9771968854282537,
+  "regime_events": [
+   0,
+   0,
+   0
+  ],
+  "regime_log_L0": [],
+  "strangers": [
+   0,
+   0,
+   68
+  ],
+  "max_displacement_on_stranger": 0.0,
+  "G_D": [
+   [
+    1.0,
+    2.0
+   ],
+   [
+    1.0,
+    2.0
+   ],
+   [
+    1.0,
+    2.0
+   ]
+  ]
+ },
+ "CLEAN/DELAYED": {
+  "acc": 0.9632925472747497,
+  "match_fp64": 0.982202447163515
+ },
+ "CLEAN/STATIC": {
+  "acc": 0.9638487208008899,
+  "match_fp64": 0.9860956618464961
+ },
+ "CLEAN/ORACLE": {
+  "acc": 0.9566184649610678,
+  "match_fp64": 0.9777530589543938
+ },
+ "SPIKE/ZAKHOR": {
+  "acc": 0.9555061179087876,
+  "match_fp64": 0.9716351501668521,
+  "acc_normal": 0.9606962380685008,
+  "acc_spiked": 0.4117647058823529,
+  "regime_events": [
+   0,
+   0,
+   0
+  ],
+  "regime_log_L0": [],
+  "strangers": [
+   17,
+   17,
+   81
+  ],
+  "max_displacement_on_stranger": 0.0,
+  "G_D": [
+   [
+    1.0,
+    2.0
+   ],
+   [
+    1.0,
+    2.0
+   ],
+   [
+    1.0,
+    2.0
+   ]
+  ]
+ },
+ "SPIKE/DELAYED": {
+  "acc": 0.957174638487208,
+  "match_fp64": 0.9760845383759733,
+  "acc_normal": 0.9623806850084222,
+  "acc_spiked": 0.4117647058823529
+ },
+ "SPIKE/STATIC": {
+  "acc": 0.9555061179087876,
+  "match_fp64": 0.9733036707452726,
+  "acc_normal": 0.9556428972487366,
+  "acc_spiked": 0.9411764705882353
+ },
+ "SPIKE/ORACLE": {
+  "acc": 0.9566184649610678,
+  "match_fp64": 0.9777530589543938,
+  "acc_normal": 0.956765861875351,
+  "acc_spiked": 0.9411764705882353
+ },
+ "REGIME_DOWN/ZAKHOR": {
+  "acc": 0.53559510567297,
+  "match_fp64": 0.9783092324805339,
+  "acc_post": 0.10801781737193764,
+  "acc_pre": 0.9622222222222222,
+  "regime_events": [
+   1,
+   1,
+   1
+  ],
+  "regime_log_L0": [
+   [
+    902,
+    1.761,
+    -2.263
+   ]
+  ],
+  "strangers": [
+   0,
+   0,
+   31
+  ],
+  "max_displacement_on_stranger": 0.0,
+  "G_D": [
+   [
+    1.0,
+    2.0
+   ],
+   [
+    1.0,
+    2.0
+   ],
+   [
+    1.0,
+    2.0
+   ]
+  ]
+ },
+ "REGIME_DOWN/DELAYED": {
+  "acc": 0.5311457174638488,
+  "match_fp64": 0.9872080088987765,
+  "acc_post": 0.09799554565701558,
+  "acc_pre": 0.9633333333333334
+ },
+ "REGIME_DOWN/STATIC": {
+  "acc": 0.5517241379310345,
+  "match_fp64": 0.957174638487208,
+  "acc_post": 0.13808463251670378,
+  "acc_pre": 0.9644444444444444
+ },
+ "REGIME_DOWN/ORACLE": {
+  "acc": 0.5278086763070078,
+  "match_fp64": 0.982202447163515,
+  "acc_post": 0.09799554565701558,
+  "acc_pre": 0.9566666666666667
+ },
+ "REGIME_UP/ZAKHOR": {
+  "acc": 0.9549499443826474,
+  "match_fp64": 0.9710789766407119,
+  "acc_post": 0.9476614699331849,
+  "acc_pre": 0.9622222222222222,
+  "regime_events": [
+   1,
+   1,
+   1
+  ],
+  "regime_log_L0": [
+   [
+    902,
+    1.892,
+    9.931
+   ]
+  ],
+  "strangers": [
+   2,
+   4,
+   82
+  ],
+  "max_displacement_on_stranger": 0.0,
+  "G_D": [
+   [
+    1.0,
+    2.0
+   ],
+   [
+    1.0,
+    2.0
+   ],
+   [
+    1.0,
+    2.0
+   ]
+  ]
+ },
+ "REGIME_UP/DELAYED": {
+  "acc": 0.9588431590656284,
+  "match_fp64": 0.978865406006674,
+  "acc_post": 0.9543429844097996,
+  "acc_pre": 0.9633333333333334
+ },
+ "REGIME_UP/STATIC": {
+  "acc": 0.753615127919911,
+  "match_fp64": 0.7719688542825361,
+  "acc_post": 0.5423162583518931,
+  "acc_pre": 0.9644444444444444
+ },
+ "REGIME_UP/ORACLE": {
+  "acc": 0.9577308120133482,
+  "match_fp64": 0.9794215795328143,
+  "acc_post": 0.9587973273942093,
+  "acc_pre": 0.9566666666666667
+ }
+}
+HASH run1 72f15dc0cc00eae6  run2 72f15dc0cc00eae6  bit-identical: True

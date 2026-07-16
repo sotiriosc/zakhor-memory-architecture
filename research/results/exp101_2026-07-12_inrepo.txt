@@ -1,0 +1,34 @@
+exp101 — Independent In-Repo Reproduction
+================================================================================
+Environment: sklearn 1.7.2, numpy 2.2.6 (this repository, 2026-07-16).
+Original (external sandbox) environment: sklearn 1.8.0, numpy 2.4.4.
+Script: research/exp101_contact.py (byte-identical to staged/external artifact).
+
+Reproduction method: script invoked as a separate process TWICE (in
+addition to the script's own internal double run, which is also checked).
+Cross-invocation hash comparison:
+  invocation 1 internal:  HASH run1 72f15dc0cc00eae6  run2 72f15dc0cc00eae6  bit-identical: True
+  invocation 2 internal:  HASH run1 72f15dc0cc00eae6  run2 72f15dc0cc00eae6  bit-identical: True
+  invocation 1 vs invocation 2 (full stdout diff): IDENTICAL
+
+Own-environment double-run: PASS (bit-identical, as required).
+
+Comparison to original external-sandbox hash:
+  original:  72f15dc0cc00eae6
+  in-repo:   72f15dc0cc00eae6
+  MATCH: EXACT (bit-identical across environments — stronger than the
+  ±0.5% absolute tolerance required; sklearn/numpy version differences
+  produced no floating-point divergence on this workload/model/seed).
+
+Headline-number tolerance check (±0.5% absolute required; delta shown):
+  fp64_clean_acc:          0.9699666  vs 0.9699666  (Δ 0.0000, exact)
+  CLEAN/ZAKHOR acc:        0.9610679  vs 0.9610679  (Δ 0.0000, exact)
+  CLEAN/DELAYED acc:       0.9632925  vs 0.9632925  (Δ 0.0000, exact)
+  CLEAN/STATIC acc:        0.9638487  vs 0.9638487  (Δ 0.0000, exact)
+  CLEAN/ORACLE acc:        0.9566185  vs 0.9566185  (Δ 0.0000, exact)
+  SPIKE/ZAKHOR acc_normal: 0.9606962  vs 0.9606962  (Δ 0.0000, exact)
+  SPIKE/DELAYED acc_normal:0.9623807  vs 0.9623807  (Δ 0.0000, exact)
+  displacement_on_stranger (all controllers, all streams): 0.0 = 0.0 (exact)
+  regime_events CLEAN: 0 = 0 (exact); REGIME_DOWN/UP: 1 = 1 (exact)
+
+VERDICT: reproduction PASS. No headline number moved. Nothing adjusted.

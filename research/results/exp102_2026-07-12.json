@@ -1,0 +1,189 @@
+{
+ "_provenance": {
+  "executed_externally_by": "Claude (Anthropic), external sandbox",
+  "execution_date": "2026-07-12",
+  "environment": "sklearn 1.8.0, numpy 2.4.4",
+  "original_double_run_hash": "dac01066e6db2acb",
+  "note": "Original artifact data below (all keys except this one) preserved verbatim, unmodified, from the staged source file exp102_results.json. Ported to research/exp102_shallow.py (byte-identical). Independently re-executed in this repository's environment; see research/results/exp102_2026-07-12_inrepo.txt for the in-repo double-run hash and headline-number reproduction check."
+ },
+ "4": {
+  "CLEAN/ZAKHOR": {
+   "acc": 0.9365962180200222,
+   "regime_events": [
+    0,
+    0,
+    0
+   ],
+   "strangers": [
+    0,
+    0,
+    55
+   ],
+   "max_disp": 0.0
+  },
+  "CLEAN/DELAYED": {
+   "acc": 0.9577308120133482
+  },
+  "CLEAN/ORACLE": {
+   "acc": 0.9521690767519466
+  },
+  "SPIKE/ZAKHOR": {
+   "acc": 0.9338153503893215,
+   "acc_normal": 0.9387984278495227,
+   "regime_events": [
+    0,
+    0,
+    0
+   ],
+   "strangers": [
+    17,
+    17,
+    68
+   ],
+   "max_disp": 0.0
+  },
+  "SPIKE/DELAYED": {
+   "acc": 0.8131256952169077,
+   "acc_normal": 0.8169567658618754
+  },
+  "SPIKE/ORACLE": {
+   "acc": 0.9516129032258065,
+   "acc_normal": 0.9517125210555868
+  }
+ },
+ "6": {
+  "CLEAN/ZAKHOR": {
+   "acc": 0.9627363737486095,
+   "regime_events": [
+    0,
+    0,
+    0
+   ],
+   "strangers": [
+    0,
+    0,
+    69
+   ],
+   "max_disp": 0.0
+  },
+  "CLEAN/DELAYED": {
+   "acc": 0.9616240266963293
+  },
+  "CLEAN/ORACLE": {
+   "acc": 0.9621802002224694
+  },
+  "SPIKE/ZAKHOR": {
+   "acc": 0.9566184649610678,
+   "acc_normal": 0.9618192026951151,
+   "regime_events": [
+    0,
+    0,
+    0
+   ],
+   "strangers": [
+    17,
+    17,
+    82
+   ],
+   "max_disp": 0.0
+  },
+  "SPIKE/DELAYED": {
+   "acc": 0.8109010011123471,
+   "acc_normal": 0.815272318921954
+  },
+  "SPIKE/ORACLE": {
+   "acc": 0.9621802002224694,
+   "acc_normal": 0.9623806850084222
+  }
+ },
+ "8": {
+  "CLEAN/ZAKHOR": {
+   "acc": 0.9610678531701891,
+   "regime_events": [
+    0,
+    0,
+    0
+   ],
+   "strangers": [
+    0,
+    0,
+    66
+   ],
+   "max_disp": 0.0
+  },
+  "CLEAN/DELAYED": {
+   "acc": 0.96440489432703
+  },
+  "CLEAN/ORACLE": {
+   "acc": 0.9566184649610678
+  },
+  "SPIKE/ZAKHOR": {
+   "acc": 0.9555061179087876,
+   "acc_normal": 0.9606962380685008,
+   "regime_events": [
+    0,
+    0,
+    0
+   ],
+   "strangers": [
+    17,
+    17,
+    79
+   ],
+   "max_disp": 0.0
+  },
+  "SPIKE/DELAYED": {
+   "acc": 0.8192436040044494,
+   "acc_normal": 0.8231330713082537
+  },
+  "SPIKE/ORACLE": {
+   "acc": 0.9566184649610678,
+   "acc_normal": 0.956765861875351
+  }
+ },
+ "16": {
+  "CLEAN/ZAKHOR": {
+   "acc": 0.9610678531701891,
+   "regime_events": [
+    0,
+    0,
+    0
+   ],
+   "strangers": [
+    0,
+    0,
+    68
+   ],
+   "max_disp": 0.0
+  },
+  "CLEAN/DELAYED": {
+   "acc": 0.9632925472747497
+  },
+  "CLEAN/ORACLE": {
+   "acc": 0.9566184649610678
+  },
+  "SPIKE/ZAKHOR": {
+   "acc": 0.9555061179087876,
+   "acc_normal": 0.9606962380685008,
+   "regime_events": [
+    0,
+    0,
+    0
+   ],
+   "strangers": [
+    17,
+    17,
+    81
+   ],
+   "max_disp": 0.0
+  },
+  "SPIKE/DELAYED": {
+   "acc": 0.957174638487208,
+   "acc_normal": 0.9623806850084222
+  },
+  "SPIKE/ORACLE": {
+   "acc": 0.9566184649610678,
+   "acc_normal": 0.956765861875351
+  }
+ }
+}

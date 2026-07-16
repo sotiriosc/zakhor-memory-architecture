@@ -1,0 +1,30 @@
+exp103 — Independent In-Repo Reproduction
+================================================================================
+Environment: sklearn 1.7.2, numpy 2.2.6 (this repository, 2026-07-16).
+Original (external sandbox) environment: sklearn 1.8.0, numpy 2.4.4.
+Script: research/exp103_bfp.py (byte-identical to staged/external artifact).
+
+Reproduction method: script invoked as a separate process TWICE. Each
+invocation itself performs an internal double-run hash check.
+  invocation 1 internal:  HASH 2d47a95618b92c95 2d47a95618b92c95  identical: True
+  invocation 2 internal:  HASH 2d47a95618b92c95 2d47a95618b92c95  identical: True
+  invocation 1 vs invocation 2 (full stdout diff): IDENTICAL
+
+Own-environment double-run: PASS (bit-identical, as required).
+
+Comparison to original external-sandbox hash:
+  original:  2d47a95618b92c95
+  in-repo:   2d47a95618b92c95
+  MATCH: EXACT (bit-identical across environments).
+
+Headline-number tolerance check (±0.5% absolute required; delta shown).
+  m=6 SPIKE normal: ZAKHOR 0.9702414 vs recorded 0.9702  (Δ 0.0000)
+  m=6 SPIKE normal: DELAYED 0.8489613 vs recorded 0.8490  (Δ 0.0000)
+  m=6 gap: 0.9702414 − 0.8489613 = +0.1213  vs recorded +0.121  (Δ 0.0003)
+  m=3 gap: 0.9421673 − 0.7973049 = +0.1449  vs recorded +0.145  (Δ 0.0001)
+  CLEAN m=6 diff: 0.9705228 − 0.9721913 = −0.0017  vs recorded −0.17%  (Δ 0.0000)
+Audit riders at both widths: displacement ≡ 0 (exact); stranger count = 17
+  per hidden layer on SPIKE (exact); zero regime events on CLEAN (exact).
+
+VERDICT: reproduction PASS. All headline numbers within tolerance
+(effectively exact). Nothing adjusted.

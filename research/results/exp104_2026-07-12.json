@@ -1,0 +1,54 @@
+{
+ "_provenance": {
+  "executed_externally_by": "Claude (Anthropic), external sandbox",
+  "execution_date": "2026-07-12",
+  "environment": "sklearn 1.8.0, numpy 2.4.4",
+  "original_double_run_hash": "200e9e3c78214f50",
+  "note": "Original artifact data below (all keys except this one) preserved verbatim, unmodified, from the staged source file exp104_results.json. Ported to research/exp104_full.py (byte-identical). Independently re-executed in this repository's environment; see research/results/exp104_2026-07-12_inrepo.txt for the in-repo double-run hash and headline-number reproduction check."
+ },
+ "fp64_clean": 0.9699666295884316,
+ "weights_only_quant_clean": 0.9699666295884316,
+ "CLEAN/ZAKHOR": {
+  "acc": 0.9699666295884316,
+  "strangers": [
+   0,
+   0,
+   64
+  ],
+  "max_disp": 0.0,
+  "regime_events": [
+   0,
+   0,
+   0
+  ]
+ },
+ "CLEAN/DELAYED": {
+  "acc": 0.9699666295884316
+ },
+ "CLEAN/ORACLE": {
+  "acc": 0.9699666295884316
+ },
+ "SPIKE/ZAKHOR": {
+  "acc": 0.96440489432703,
+  "acc_normal": 0.970241437394722,
+  "strangers": [
+   17,
+   17,
+   79
+  ],
+  "max_disp": 0.0,
+  "regime_events": [
+   0,
+   0,
+   0
+  ]
+ },
+ "SPIKE/DELAYED": {
+  "acc": 0.8409343715239155,
+  "acc_normal": 0.845592363840539
+ },
+ "SPIKE/ORACLE": {
+  "acc": 0.9699666295884316,
+  "acc_normal": 0.970241437394722
+ }
+}

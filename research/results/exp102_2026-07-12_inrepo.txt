@@ -1,0 +1,34 @@
+exp102 — Independent In-Repo Reproduction
+================================================================================
+Environment: sklearn 1.7.2, numpy 2.2.6 (this repository, 2026-07-16).
+Original (external sandbox) environment: sklearn 1.8.0, numpy 2.4.4.
+Script: research/exp102_shallow.py (byte-identical to staged/external artifact).
+
+Reproduction method: script invoked as a separate process TWICE. Each
+invocation itself performs an internal double-run hash check.
+  invocation 1 internal:  HASH dac01066e6db2acb dac01066e6db2acb  identical: True
+  invocation 2 internal:  HASH dac01066e6db2acb dac01066e6db2acb  identical: True
+  invocation 1 vs invocation 2 (full stdout diff): IDENTICAL
+
+Own-environment double-run: PASS (bit-identical, as required).
+
+Comparison to original external-sandbox hash:
+  original:  dac01066e6db2acb
+  in-repo:   dac01066e6db2acb
+  MATCH: EXACT (bit-identical across environments).
+
+Headline-number tolerance check (±0.5% absolute required; delta shown).
+SPIKE normal-sample gap (ZAKHOR − DELAYED), per LEVELS:
+  L=4:  gap = 0.9387984 − 0.8169568 = +0.1218  vs recorded +0.122  (Δ 0.0002)
+  L=6:  gap = 0.9618192 − 0.8152723 = +0.1465  vs recorded +0.147  (Δ 0.0000)
+  L=8:  gap = 0.9606962 − 0.8231331 = +0.1376  vs recorded +0.138  (Δ 0.0002)
+  L=16: gap = 0.9606962 − 0.9623807 = −0.0017  vs recorded −0.002  (Δ 0.0002)
+CLEAN honesty tax at L=4 (ZAKHOR − DELAYED):
+  0.9365962 − 0.9577308 = −0.0211  vs recorded −2.1%  (Δ 0.0001)
+Audit riders: displacement ≡ 0 all depths (exact); strangers ≈ 17 per
+  hidden layer on SPIKE at every depth (exact); zero regime events on
+  CLEAN at every depth (exact).
+
+VERDICT: reproduction PASS. All headline numbers within tolerance
+(effectively exact, deltas at floating-point/print-rounding level only,
+consistent with the bit-identical hash). Nothing adjusted.

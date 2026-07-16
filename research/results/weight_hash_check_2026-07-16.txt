@@ -1,0 +1,25 @@
+Zakhor Memory Architecture :: Weight-Hash Check (2026-07-16)
+========================================================================
+  Environment: sklearn 1.7.2, numpy 2.2.6
+  Weight hash (SHA-256[:16] of concatenated clf.coefs_): 9dab0659cd85b3ab
+
+  Original external-sandbox weight hash: NOT RECORDED — the
+  original exp101 artifact hashed predictions/accuracies only,
+  never the raw weight arrays. This run's hash is the first one
+  on record; it establishes a baseline for this repository's
+  environment (sklearn/numpy versions above), not yet a
+  cross-environment comparison.
+
+  What IS confirmed by the exp101-104 reproduction (2026-07-16):
+  predictions and accuracies were bit-identical across sklearn
+  1.8.0/numpy 2.4.4 (external) and this repository's sklearn/numpy
+  (above). Identical predictions on identical inputs, from a
+  deterministic feed-forward pass, is only possible if the
+  weights that produced them were either (a) bit-identical, or
+  (b) different but coincidentally classify every one of ~1796
+  x2 test-stream samples across four experiments identically —
+  vanishingly unlikely for a 64-32-10 MLP unless the weights
+  themselves matched. This hash is the direct instrument for
+  confirming which of those it was, going forward: run this
+  script in any environment and compare the printed hash
+  against the value recorded in the dated results file.

@@ -1,0 +1,52 @@
+{
+ "_provenance": {
+  "executed_externally_by": "Claude (Anthropic), external sandbox",
+  "execution_date": "2026-07-12",
+  "environment": "sklearn 1.8.0, numpy 2.4.4",
+  "original_double_run_hash": "bc5f35d17500737e",
+  "note": "Original artifact data below (all keys except this one) preserved verbatim, unmodified, from the staged source file docs/exp105_results.json. Script ported to research/exp105_neighbors.py (byte-identical). Independently re-executed in this repository's environment; see research/results/exp105_2026-07-12_inrepo.txt for the in-repo double-run hash and headline-number reproduction check."
+ },
+ "fp64": 0.9699666295884316,
+ "CLEAN/LOCALMAX": {
+  "acc": 0.9699666295884316
+ },
+ "CLEAN/KEEPER": {
+  "acc": 0.9688542825361512,
+  "strangers": 310,
+  "true_corrupt": 0,
+  "ratio": 310.0,
+  "max_disp": 0.0,
+  "regime_events": [0, 0, 0],
+  "G": [1.0, 1.0, 1.0]
+ },
+ "SPARSE/LOCALMAX": {
+  "acc": 0.8531701890989989
+ },
+ "SPARSE/KEEPER": {
+  "acc": 0.9649610678531702,
+  "strangers": 613,
+  "true_corrupt": 365,
+  "ratio": 1.6794520547945206,
+  "max_disp": 0.0,
+  "regime_events": [1, 1, 1],
+  "G": [1.0, 1.0, 1.0]
+ },
+ "SPARSE/ORACLE": {
+  "acc": 0.9655172413793104
+ },
+ "DENSE/LOCALMAX": {
+  "acc": 0.38375973303670746
+ },
+ "DENSE/KEEPER": {
+  "acc": 0.9226918798665183,
+  "strangers": 3204,
+  "true_corrupt": 2998,
+  "ratio": 1.0687124749833221,
+  "max_disp": 0.0,
+  "regime_events": [1, 1, 1],
+  "G": [1.0, 1.0, 1.0]
+ },
+ "DENSE/ORACLE": {
+  "acc": 0.9226918798665183
+ }
+}

@@ -1,0 +1,50 @@
+exp105 — Independent In-Repo Reproduction
+================================================================================
+Environment: sklearn 1.7.2, numpy 2.2.6 (this repository, 2026-07-16).
+Original (external sandbox) environment: sklearn 1.8.0, numpy 2.4.4.
+Script: research/exp105_neighbors.py (byte-identical to staged/external artifact).
+
+Note: the script imports exp101_contact as base (for model constants and the
+shared SEED). On import, exp101_contact's module-level run executes and
+produces its own JSON/HASH output to stdout; this is expected and does not
+affect exp105's own hash lines, which appear after it.
+
+Reproduction method: script invoked as a separate process TWICE (in
+addition to the script's own internal double run, which is also checked).
+Cross-invocation hash comparison:
+  invocation 1 internal:  HASH bc5f35d17500737e bc5f35d17500737e identical: True
+  invocation 2 internal:  HASH bc5f35d17500737e bc5f35d17500737e identical: True
+  invocation 1 vs invocation 2 (relevant output lines): IDENTICAL
+
+Own-environment double-run: PASS (bit-identical, as required).
+
+Comparison to original external-sandbox hash:
+  original:  bc5f35d17500737e
+  in-repo:   bc5f35d17500737e
+  MATCH: EXACT (bit-identical across environments — stronger than the
+  ±0.5% absolute tolerance required; sklearn/numpy version differences
+  produced no floating-point divergence on this workload/model/seed).
+
+Headline-number tolerance check (±0.5% absolute required; delta shown):
+  fp64 acc:                  0.9700 vs 0.9700  (Δ 0.0000, exact)
+  CLEAN/LOCALMAX acc:        0.9700 vs 0.9700  (Δ 0.0000, exact)
+  CLEAN/KEEPER acc:          0.9689 vs 0.9689  (Δ 0.0000, exact)
+  CLEAN gap (KEEPER-LOCALMAX): −0.0011 vs −0.0011  (exact)
+  SPARSE/LOCALMAX acc:       0.8532 vs 0.8532  (Δ 0.0000, exact)
+  SPARSE/KEEPER acc:         0.9650 vs 0.9650  (Δ 0.0000, exact)
+  SPARSE gap:                +0.1118 vs +0.1118  (exact)
+  DENSE/LOCALMAX acc:        0.3838 vs 0.3838  (Δ 0.0000, exact)
+  DENSE/KEEPER acc:          0.9227 vs 0.9227  (Δ 0.0000, exact)
+  DENSE gap:                 +0.5389 vs +0.5389  (exact)
+  DENSE/ORACLE-CLEAN acc:    0.9227 vs 0.9227  (Δ 0.0000, exact)
+  ORACLE-CLEAN equality:     0.9227 = 0.9227  (exact)
+  CLEAN strangers declared:  310 vs 310  (exact)
+  CLEAN true_corrupt:        0 vs 0  (exact)
+  SPARSE strangers/ratio:    613/365 = 1.679 vs 1.679  (exact)
+  DENSE strangers/ratio:     3204/2998 = 1.069 vs 1.069  (exact)
+  max_disp on stranger-blocks (all streams): 0.0 = 0.0  (exact)
+  regime_events CLEAN:       [0,0,0] = [0,0,0]  (exact)
+  regime_events SPARSE:      [1,1,1] = [1,1,1]  (exact)
+  regime_events DENSE:       [1,1,1] = [1,1,1]  (exact)
+
+VERDICT: reproduction PASS. No headline number moved. Nothing adjusted.

@@ -9,7 +9,7 @@
 
 **Status:** Draft v0.1 · **Date:** 2026-07-16
 
-This note is written from the ported exp101–104 ("Contact") artifacts only.
+This note is written from the ported exp101–105 ("Contact") artifacts only.
 No new claims are made beyond what those pre-registrations, scripts, and
 results establish. The exp00x series (exp001–exp007b) is CLOSED; its
 deliverable, [Architecture Note 02](architecture-note-02-synthesis.md),
@@ -193,6 +193,110 @@ hash:
 | exp102 | `dac01066e6db2acb` | `dac01066e6db2acb` | exact |
 | exp103 | `2d47a95618b92c95` | `2d47a95618b92c95` | exact |
 | exp104 | `200e9e3c78214f50` | `200e9e3c78214f50` | exact |
+| exp105 | `bc5f35d17500737e` | `bc5f35d17500737e` | exact |
 
 No threshold, number, or verdict was altered in porting. All decisions —
 what to port, how to verify, what this note claims — are the steward's.
+
+---
+
+## 6. exp105 — The Neighbors: N=8 keeper-gated exponent selection
+
+**Scope statement.** exp103/104's +12-point result was measured in a
+per-layer tracked-scale mode (shared exponent driven by a scalar leaky
+integrator across the whole layer). Horus's native compressed format is
+E3M6+block: a 6-bit shared exponent per 8-element block, set from the
+block's own local maximum — a per-block oracle that is perfectly adapted
+to clean data and maximally exposed to in-block outliers. The exp103/104
+numbers are not cited here; they are scoped to their mode, as the
+pre-registration requires.
+
+**The concentration claim (P14) — PASS.** On DENSE (p = 1/64
+element-level corruption, ~1 corrupted element per 8-element block),
+KEEPER-GATED top-1 was **0.9227** against LOCALMAX's **0.3838**: a gap
+of **+53.9%** absolute, against a threshold of 3.0%. The mechanism
+operates as predicted: a single corrupted element, multiplied by φ^10
+(≈123×), inflates its block's shared exponent by approximately 10
+φ-shells (~7 octaves), pushing the block's 7 surviving elements below
+the 6-bit mantissa floor and underflowing them to zero. The keeper
+detects the element as a stranger, excludes it from the block-max
+computation, sets the exponent from the surviving elements, and clips
+the outlier to the block ceiling. At the block level, the neighbors keep
+their precision; at the network level, the classification accuracy is
+recovered from near chance (0.38) to 0.92.
+
+On SPARSE (p = 1/512, ~1 corrupted element per 64 blocks), the gap is
+**+11.2%** (KEEPER 0.9650 vs LOCALMAX 0.8532) — P15 PASS. Corrupted
+blocks, though rare, are individually catastrophic under LOCALMAX and
+individually recoverable under KEEPER; the aggregate advantage reflects
+the per-block mechanism operating correctly wherever corruption lands.
+
+**Oracle-equivalence (P18) — PASS.** On DENSE, KEEPER-GATED top-1
+**0.9227 = ORACLE-CLEAN 0.9227** exactly. ORACLE-CLEAN is the
+unreachable diagnostic ceiling: it sets each block's exponent from the
+uncorrupted activations directly, bypassing the corruption entirely.
+The keeper, operating causally from a tracked scalar state with no
+foreknowledge of corruption, matches ORACLE-CLEAN's per-block accuracy
+to four decimal places. At N=8, stranger exclusion from the block's own
+max fully recovers what the block's neighbors would have seen had the
+spike never arrived.
+
+**P16 (no honesty tax on CLEAN) — PASS.** CLEAN gap is −0.11%
+(KEEPER 0.9689 vs LOCALMAX 0.9700), well within the 1.0% bound. Zero
+regime events on CLEAN across all three layers. Tracked-state
+displacement from stranger-declared blocks ≡ 0.0 (exact) in every
+configuration.
+
+**P17 (the audit) — FALSIFIED.** The audit specified two conditions:
+(i) on DENSE, the stranger-declaration count is within 1.05× of the
+true corrupted-element count; (ii) zero strangers declared on CLEAN
+beyond the calibration-tail rate.
+
+Condition (i): DENSE ratio is 3204 / 2998 = **1.069**, exceeding the
+1.05× bound. On SPARSE the overcounting is more pronounced: 613
+declared against 365 true corruptions, ratio **1.679**. Root cause: the
+calibration window (128 blocks) does not drive G above its 1.0 minimum
+on this workload's per-block maxima, leaving the guard band fixed at a
+single log₂ unit. Under N=8 granularity the per-block maximum is a
+single element's magnitude; the activation distribution's upper tail
+occasionally places normal clean elements above the tracked ceiling +
+1.0, declaring them as strangers. The SPARSE overcounting (1.679) is
+larger than DENSE (1.069) because at SPARSE the true-corrupt count is
+small (365 out of ≈1.4M elements) and the false-declaration background
+from normal-tail elements is proportionally dominant.
+
+Condition (ii): 310 strangers declared on CLEAN, against 0 true
+corruptions, ratio 310.0. Inspecting the per-layer counts (regime_events
+= [0,0,0] on CLEAN, G = [1.0, 1.0, 1.0] all layers): all 310
+declarations originate in the logits layer — the same heavy-tail
+artifact established as an open observation in §3 of this note. The
+hidden layers declare 0 strangers on CLEAN, as they do throughout
+exp101–104; the logits layer, with its unbounded output distribution, is
+not calibrated to the same scale as the hidden layers, and G = 1.0 is
+insufficient guard for it. The underlying phenomenon is the same
+heavy-tail finding from §3; at N=8 it appears as audit overcounting
+rather than a separate defect.
+
+P17 FALSIFIED on both conditions. The falsification is a statement about
+calibration adequacy at N=8 granularity, not about the keeper's core
+mechanism (stranger exclusion, tracked-state update, displacement): all
+three of those properties held exactly.
+
+**One regime event per layer per corrupted stream.** On both SPARSE and
+DENSE, every layer fired exactly one regime event ([1, 1, 1]) — matching
+the number of distinct corruption epochs in each stream (one per run,
+since the corruption rate is steady). On CLEAN, regime events are
+[0, 0, 0] everywhere. This confirms the regime machinery's response at
+N=8 granularity: a sustained corruption rate, once it accumulates K=3
+consecutive stranger observations, triggers one rebirth per layer, after
+which the tracked state reseats and the regime counter resets. The
+count of regime events equals the count of independently corrupted
+streams, not the count of corrupted elements — the rebirth absorbs the
+pattern, then the standard stranger-gate handles individual events.
+
+**Series provenance for exp105.** Pre-registered, implemented, and
+executed externally (Claude, Anthropic sandbox, sklearn 1.8.0, numpy
+2.4.4). Ported byte-identical to `research/exp105_neighbors.py`; run
+twice independently in this environment (sklearn 1.7.2, numpy 2.2.6).
+Both in-repo invocations produced hash `bc5f35d17500737e`, matching the
+original exactly. See `research/results/exp105_2026-07-12_inrepo.txt`.

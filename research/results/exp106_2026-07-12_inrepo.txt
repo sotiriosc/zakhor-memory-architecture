@@ -1,0 +1,49 @@
+exp106 — Independent In-Repo Reproduction
+================================================================================
+Environment: sklearn 1.7.2, numpy 2.2.6 (this repository, 2026-07-16).
+Original (external sandbox) environment: sklearn 1.8.0, numpy 2.4.4.
+Script: research/exp106_dissonance.py (byte-identical to staged/external artifact).
+
+Note: the script imports exp105_neighbors which imports exp101_contact.
+Both modules execute module-level code on import; their HASH lines and
+CLEAN/SPARSE/DENSE output appear before exp106's own lines. exp105 audit
+numbers must match exp105's original exactly (rider check).
+
+Reproduction method: script invoked as a separate process TWICE (in
+addition to the script's own internal double run).
+Cross-invocation hash comparison:
+  invocation 1 internal:  HASH d1ccd001dfdf497b d1ccd001dfdf497b identical: True
+  invocation 2 internal:  HASH d1ccd001dfdf497b d1ccd001dfdf497b identical: True
+  invocation 1 vs invocation 2 (exp106 output lines): IDENTICAL
+
+Own-environment double-run: PASS (bit-identical, as required).
+
+Comparison to original external-sandbox hash:
+  original:  d1ccd001dfdf497b
+  in-repo:   d1ccd001dfdf497b
+  MATCH: EXACT (bit-identical across environments).
+
+Rider check — exp105 audit numbers reproduced within this run (must match
+research/results/exp105_2026-07-12_inrepo.txt exactly):
+  CLEAN strangers=310, true_corrupt=0, reg=[0,0,0]   MATCH: exact
+  SPARSE strangers=613, true_corrupt=365, reg=[1,1,1] MATCH: exact
+  DENSE strangers=3204, true_corrupt=2998, reg=[1,1,1] MATCH: exact
+
+Headline-number tolerance check (±0.5% absolute required; delta shown):
+  CLEAN served_acc:        0.9689 vs 0.9689  (Δ 0.0000, exact)
+  CLEAN disagree_rate:     0.0011 vs 0.0011  (exact)
+  CLEAN err_given_disagree:1.0000 vs 1.0000  (exact)
+  CLEAN err_given_agree:   0.0301 vs 0.0301  (exact)
+  CLEAN P19 ratio:         33.26  vs 33.26   (exact)
+  SPARSE served_acc:       0.9650 vs 0.9650  (exact)
+  SPARSE disagree_rate:    0.1179 vs 0.1179  (exact)
+  SPARSE P19 ratio:        1.25   vs 1.25    (exact)
+  SPARSE P21 lift:         1.22   vs 1.22    (exact)
+  DENSE served_acc:        0.9227 vs 0.9227  (exact)
+  DENSE disagree_rate:     0.5823 vs 0.5823  (exact)
+  DENSE err_given_disagree:0.0669 vs 0.0669  (exact)
+  DENSE err_given_agree:   0.0919 vs 0.0919  (exact)
+  DENSE P19 ratio:         0.73   vs 0.73    (exact — inverted, < 1.0)
+  DENSE P21 lift:          0.86   vs 0.86    (exact — inverted, < 1.0)
+
+VERDICT: reproduction PASS. No headline number moved. Nothing adjusted.

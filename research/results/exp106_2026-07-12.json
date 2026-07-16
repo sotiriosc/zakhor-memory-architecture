@@ -1,0 +1,51 @@
+{
+ "_provenance": {
+  "executed_externally_by": "Claude (Anthropic), external sandbox",
+  "execution_date": "2026-07-12",
+  "environment": "sklearn 1.8.0, numpy 2.4.4",
+  "original_double_run_hash": "d1ccd001dfdf497b",
+  "note": "Original artifact data below (all keys except this one) preserved verbatim from docs/Exp106-results.JSON. Script ported to research/exp106_dissonance.py (byte-identical). Independently re-executed in this repository; see research/results/exp106_2026-07-12_inrepo.txt for the in-repo double-run hash and headline-number check. Note: p21_lift for CLEAN stream is Infinity (p_dis_given_right = 0.0 on clean data) — standard Python json serialization."
+ },
+ "CLEAN": {
+  "served_acc": 0.9688542825361512,
+  "localmax_acc": 0.9699666295884316,
+  "disagree_rate": 0.0011123470522803114,
+  "err_given_disagree": 1.0,
+  "err_given_agree": 0.030066815144766147,
+  "p19_ratio": 33.25925925925926,
+  "p_dis_given_wrong": 0.03571428571428571,
+  "p_dis_given_right": 0.0,
+  "strangers": 310,
+  "true_corrupt": 0,
+  "regime_events": [0, 0, 0],
+  "p21_lift": "Infinity"
+ },
+ "SPARSE": {
+  "served_acc": 0.9649610678531702,
+  "localmax_acc": 0.8531701890989989,
+  "disagree_rate": 0.11790878754171301,
+  "err_given_disagree": 0.04245283018867924,
+  "err_given_agree": 0.034047919293820936,
+  "p19_ratio": 1.2468553459119496,
+  "p_dis_given_wrong": 0.14285714285714285,
+  "p_dis_given_right": 0.1170028818443804,
+  "strangers": 613,
+  "true_corrupt": 365,
+  "regime_events": [1, 1, 1],
+  "p21_lift": 1.2209711470795215
+ },
+ "DENSE": {
+  "served_acc": 0.9226918798665183,
+  "localmax_acc": 0.38375973303670746,
+  "disagree_rate": 0.582313681868743,
+  "err_given_disagree": 0.06685768863419293,
+  "err_given_agree": 0.09187749667110519,
+  "p19_ratio": 0.7276829589025927,
+  "p_dis_given_wrong": 0.5035971223021583,
+  "p_dis_given_right": 0.5889089813140446,
+  "strangers": 3204,
+  "true_corrupt": 2998,
+  "regime_events": [1, 1, 1],
+  "p21_lift": 0.855135748105712
+ }
+}

@@ -9,7 +9,7 @@
 
 **Status:** Draft v0.1 · **Date:** 2026-07-16
 
-This note is written from the ported exp101–105 ("Contact") artifacts only.
+This note is written from the ported exp101–106 ("Contact") artifacts only.
 No new claims are made beyond what those pre-registrations, scripts, and
 results establish. The exp00x series (exp001–exp007b) is CLOSED; its
 deliverable, [Architecture Note 02](architecture-note-02-synthesis.md),
@@ -194,9 +194,99 @@ hash:
 | exp103 | `2d47a95618b92c95` | `2d47a95618b92c95` | exact |
 | exp104 | `200e9e3c78214f50` | `200e9e3c78214f50` | exact |
 | exp105 | `bc5f35d17500737e` | `bc5f35d17500737e` | exact |
+| exp106 | `d1ccd001dfdf497b` | `d1ccd001dfdf497b` | exact |
 
 No threshold, number, or verdict was altered in porting. All decisions —
 what to port, how to verify, what this note claims — are the steward's.
+
+---
+
+## 7. exp106 — The Dissonance Bit: regime-dependent semantics and the agree-wrong frontier
+
+**The bit.** Run the same corrupted-stream inference through two paths
+simultaneously — LOCALMAX (per-block, memoryless) and KEEPER (exp105's
+tracked-scale machinery, stateful) — and emit one bit per sample: did
+their predictions differ? The served answer is always KEEPER's (the
+better path per exp105). The flag costs one comparison.
+
+**P20 (clean floor) — PASS.** On CLEAN, the disagreement rate is
+**0.11%** (0.0011), well within the 3.0% bound. All 310 CLEAN
+disagreements are wrong (err_given_disagree = 1.0); they are precisely
+the false-stranger declarations the guard band produces on clean data —
+the same 310 elements flagged in exp105, now visible as prediction
+divergences. On CLEAN the bit is near-perfectly specific: 100% of
+disagreements are errors, 0% of agreements are false-alarm disagreements.
+The P19 CLEAN ratio is 33.3× — structurally correct, but P19 was not
+specified on CLEAN and this number is not a verdict.
+
+**P19 (informativeness) — FALSIFIED on both specified streams.** P19
+requires P(wrong | disagree) ≥ 3.0 × P(wrong | agree) on SPARSE and on
+DENSE.
+
+On SPARSE: err_given_disagree = 4.25%, err_given_agree = 3.40%,
+ratio = **1.25** < 3.0. The bit is slightly, not strongly, informative.
+At p=1/512 most disagreements trace to the false-stranger background
+(310 calibration-tail declarations per stream vs 365 true corruptions),
+diluting the signal: many disagreements arise from the G=1.0 artifact
+rather than from actual corruption events, pushing the error rate among
+disagreements closer to the error rate among agreements.
+
+On DENSE: err_given_disagree = 6.69%, err_given_agree = **9.19%**,
+ratio = **0.73** — the flag **inverts**. Samples where the two paths
+disagree are *less likely to be wrong* than samples where they agree. The
+threshold of 3.0× is not approached; the direction reverses.
+
+**P21 (wrongness coverage) — FALSIFIED.** P21 requires P(disagree |
+wrong) ≥ 2.0 × P(disagree | right) on DENSE. Measured: P(disagree |
+wrong) = 50.4%, P(disagree | right) = 58.9%, lift = **0.855** < 1.0 —
+again inverted. Wrong samples are *less likely* to be flagged as
+disagreements than correct samples.
+
+**Root cause: the semantics of disagreement invert in the dense regime.**
+At DENSE (p = 1/64), 58.2% of samples produce a disagreement. These
+disagreements are not "both paths confused, served answer suspect" — they
+are "KEEPER recovered the sample by excluding the stranger, LOCALMAX
+failed catastrophically." Disagreement flags the KEEPER rescue operation.
+The served answer under disagreement is the *better* answer: KEEPER
+classified correctly while LOCALMAX, whose exponent was inflated by the
+in-block outlier, underflowed the 7 surviving neighbors to zero and
+predicted from noise. Disagreement in the dense regime is therefore a
+positive-quality signal for the served answer, not a warning about it —
+the bit's polarity is backwards for the use case P19 and P21 assumed.
+
+The inversion is complete and structural. It is not a calibration
+artifact and it does not diminish with more data; it is the geometry of
+what the two paths are doing when corruption is common.
+
+**The agree-wrong class: the honest frontier.** When both paths agree on
+DENSE, the error rate is **9.19%**. These are the samples where the
+corruption damage is absorbed the same way by both paths — either both
+correctly classify a clean block, or both fail on the same quantized
+representation of a corrupted block. The agree-wrong cases are the second
+category: 9.19% of the samples that elicited agreement are wrong, and no
+signal built in this series sees them.
+
+The stranger flag is silent (by construction: if a stranger were present,
+KEEPER and LOCALMAX would diverge). The dissonance bit is silent (by
+definition). The regime log is silent (the regime event has already
+fired; the state has reseated; the block looks normal to the tracker).
+These answers pass every integrity check we have, then fail.
+
+9.2% of DENSE-stream agreeing answers are wrong with both layers in
+agreement, and no signal we have built yet reaches them. That is the
+honest description of the frontier.
+
+**Rider.** exp106 uses exp105's seeds and machinery; audit numbers must
+match exp105 exactly. They do: CLEAN (310 strangers, 0 true), SPARSE
+(613/365, [1,1,1]), DENSE (3204/2998, [1,1,1]) — bit-for-bit identical.
+No implementation drift.
+
+**Series provenance for exp106.** Pre-registered, implemented, and
+executed externally (Claude, Anthropic sandbox, sklearn 1.8.0, numpy
+2.4.4). Ported byte-identical to `research/exp106_dissonance.py`; run
+twice independently in this environment (sklearn 1.7.2, numpy 2.2.6).
+Both invocations produced hash `d1ccd001dfdf497b`, matching the original
+exactly. See `research/results/exp106_2026-07-12_inrepo.txt`.
 
 ---
 

@@ -26,3 +26,269 @@ is the discipline of keeping it. The one gap: keeping is still only a detector.
 The handshake notices drift; nothing yet re-seats the carried thing to its true
 counterpart. Remembering rightly, not only noticing you forgot — that is the
 next theorem the name is asking for.
+
+# KEEP — The Name's Obligation
+
+<!--
+ ZAKHOR MEMORY ARCHITECTURE  |  PROPRIETARY RESEARCH — IN DEVELOPMENT
+ Original architectural research project.
+ Steward / Founder: Sotirios Chortogiannos.
+ This note: 2026-07-11.  See ../NOTICE.
+-->
+
+**Status:** Draft v0.1 · **Author:** Sotirios Chortogiannos · **Date:** 2026-07-11
+
+This file records the layer beneath the mechanism: why the project is named
+for a memory rather than for the invariant objects it uses, and what that
+name obligates the architecture to build.
+
+---
+
+## 1. What the name imports
+
+A pole and a fixed point are invariant by definition; they cannot drift. A
+memory can — it can be corrupted, edited, mis-carried. Naming this
+architecture for memory therefore imports a vulnerability the mathematical
+objects do not have.
+
+That is not a defect. It is the name being accurate about the carried case.
+The invariant lives in the one who carries it, so the honest name is indexed
+to the carrier, not to the object-in-itself. HaMakom names the anchor as it
+is in itself; a knowing memory names it as it is in the one who carries it.
+The name passes the stricter test: it names the anchor at the exact layer
+where it is actually at risk.
+
+## 2. The obligation
+
+If the name admits the keeping, the architecture owes a keeping mechanism —
+otherwise the name is only honest about a vulnerability left unaddressed.
+
+The mechanism preceded the name. The handshake (Note 00 §2.3, roadmap
+stage 4) is the keeping: it asks whether a carried structure is still a true
+self-similar counterpart of what it claims to descend from, or whether it
+has drifted — an exact test on the golden-angle phase, strangers rejected.
+A pole never needs that test. A memory does. The observer's angular
+deviation is the same quantity read at the semantic layer: how far a carried
+viewpoint has rotated from its origin.
+
+## 3. The three operations
+
+The act of keeping decomposes into three operations. Two exist; one is owed.
+
+**Detect (zakhor).** The handshake as specified: measure the phase deviation
+of a carried structure against an integer number of golden angles. This
+notices drift. Built (prototype layer).
+
+**Keep (shamor).** The discipline of running detection as a standing
+practice rather than a one-time gate — the carried thing checked, not
+assumed. The name zakhor never travels alone in its source: the command
+appears once as *zakhor* (remember) and once as *shamor* (keep, guard), and
+the tradition holds the two were spoken as one utterance. The mechanism
+arrived at the same pairing independently: detection without discipline is
+not keeping. Partially built (protocol layer, roadmap stage 4).
+
+**Return.** The unbuilt third. Detection notices that a carried thing has
+drifted; nothing yet re-seats it to its true counterpart. Remembering
+rightly, not only noticing you forgot. This file exists to name that debt.
+
+## 4. The return operation (specification sketch)
+
+The detector already contains the corrector, because in this geometry the
+deviation is a vector, not only a verdict:
+
+    deviation = phase_carried − nearest integer golden-angle phase
+    re-seat   : phase_carried ← phase_carried − deviation
+
+What makes re-seating provable rather than hopeful is the three-distance
+theorem: for any prefix of the golden-angle sequence, the gaps between
+occupied phases come in at most three sizes. Half the smallest gap is
+therefore a well-defined **safe radius**:
+
+- **Within the safe radius:** re-seating provably restores the carried
+  structure to its *correct* counterpart. Restore, and log the restoration.
+- **Beyond the safe radius:** re-seating still succeeds mechanically but may
+  land on the wrong origin — confident, structurally valid, false. That is
+  confabulation, stated as geometry. The operation must **declare loss**
+  rather than repair to a stranger, and log the declaration.
+
+The obligation is therefore double, and the theorem to be proven states
+both:
+
+> **Return theorem (to prove).** For a carried phase with deviation d and
+> prefix-dependent safe radius r: if |d| < r, the return operation restores
+> the unique true counterpart; if |d| ≥ r, no operation can identify the
+> true counterpart from the phase alone, and the honest output is a declared
+> loss. Knowing you forgot is part of remembering rightly.
+
+**Logging is not optional.** A memory that silently repairs is exactly as
+untrustworthy as one that silently drifts. Every return operation records
+which branch was taken.
+
+> **Amendment (2026-07-11, after exp002–exp004).** The architectural claim
+> that φ-specific shell identity earns a load-bearing role was falsified
+> under three operationalizations and is retired under the two-strike rule;
+> no further experimental restatement is permitted. The shell automorphism
+> stands as a descriptive property. The bounded return theorem was never
+> exhibited an interior counterexample within its stated antecedent; its
+> proof or refutation is owed to mathematics, not to further experiments.
+> Two operations of keeping were meanwhile established empirically: the
+> declared stranger is logged, not remembered (exp005 §1), and a procession
+> of strangers is a new world — the memory re-seeds and records its rebirth
+> (exp005 §2). The keeping discipline now writes three registers: what
+> could not be carried, what was carried while still in motion, and where
+> the world began again.
+
+## 5. Return was already the word
+
+The third operation was not invented here; it arrived. It is the core word
+of the Ground project — memory is return, not storage — surfacing at the
+layer where it can become a theorem instead of a philosophy. And it is the
+tradition's own third term: the re-seating of what drifted back to its
+origin is treated there not as undoing the drift but as the completion of
+remembering.
+
+Detect, keep, return. One act, three operations, one unbuilt.
+
+## 6. Roadmap hook
+
+Extends Note 00 §5:
+
+| Stage | Deliverable | Location |
+|---|---|---|
+| 4 | Agentic handshake protocol (detect + keep) | `core/` (planned) |
+| 5 | Return operation: re-seat / declare-loss, safe-radius proof, logging | `core/` + `docs/` (owed by this note) |
+
+## 7. Provenance
+
+Per project convention of honest attribution. The name-imports-vulnerability
+reading, the keeping obligation, the identification of the handshake as the
+keeping, and the naming of the gap ("remembering rightly, not only noticing
+you forgot") are the steward's. The deviation-as-vector observation, the
+safe-radius derivation from the three-distance theorem, the split obligation
+(restore / declare loss), and the zakhor–shamor textual pairing were
+contributed by Claude (Anthropic) in adversarial-collaborative review. The
+coherence of the three operations as one act was seen together. All
+architectural decisions remain the steward's.
+
+---
+
+> **Amendment (2026-07-11, after exp002–exp007).** The experimental series
+> reached its closing experiment on 2026-07-11 with two verdicts that end the
+> series without a clean close. The geometric honesty criterion H11 — that
+> φ-codebook quantization error is bounded by `(1−1/φ)/2 × |v|` — earned
+> METRIC-DEFECT: ORACLE-PHI (perfect calibration) itself violates the
+> criterion for ~25% of values, because the correct bound is
+> `(1−1/φ)/2 × s_j` (half the shell gap, where `s_j > v`), not
+> `(1−1/φ)/2 × |v|` (a strictly smaller quantity). The promise is real; the
+> formula as written understates it. The ghost-flag fix H12 — that setting the
+> mid-return countdown to K+4 on rebirth (rather than max with the
+> formula-clock value) would collapse S4 coverage from 26.8% to < 2% —
+> was FALSIFIED: coverage dropped only to 24.5%/10.9%, because the dominant
+> source of mid-return flags is continuous natural steady-state deviations
+> (~1.8% trigger rate × ~10 block average) that the rebirth-reset does not
+> address, not the cold-start formula clock that was targeted. All prior
+> regressions passed at their fifth confirmations. One targeted follow-up
+> freeze is permitted for the ghost-fix mechanics only; the geometric criterion
+> is not restated — its failure goes in Architecture Note 02 as-is. The series
+> is suspended, not closed.
+>
+> **Amendment (2026-07-11, closing audit — decision rule).** A steward's
+> audit was run before choosing between closing the series (Path A) and
+> opening the permitted exp007b follow-up. Rule frozen before computation:
+> Lift = E_f/E_u ≥ 2.0 AND sensitivity = 100% → CLOSE; Lift < 1.25 →
+> OPEN exp007b. Replay SHA-256 matched 8c7757cb… exactly (bit-identical).
+> Result: pooled Lift = 1.0006; S4 sensitivity = 66.7% (cold-start block
+> t=0 missed — it carries no clock at t=0, state not yet ready). The max-
+> relative-error structural floor of the phi-codebook (~99.7% of blocks
+> reach rel-err ≈ 1.0 from near-zero values snapping to 0) is identical
+> in flagged and unflagged groups, making the register's information
+> content indistinguishable from zero. Path A was blocked by both
+> conditions. Decision: **OPEN exp007b** (§2 ghost-fix mechanics only).
+> A register that wakes on 12.4% of stationary blocks without distinction
+> from genuine transients is an unkept register.
+>
+> **Amendment (2026-07-11, exp007b — final verdicts).** The permitted
+> follow-up experiment (ghost-fix mechanics only) ran to completion on
+> 2026-07-11. SHA-256 8c7757cb… matched bit-identically (the mid-return
+> flag does not enter the state path, so the hash is stable across
+> trigger variants). All sixth-confirmation regressions PASSED: S1 tie,
+> displacement ≡ 0 (sixth), H2-f grid ±8% (sixth), H8a/H8b/H8c/H8d,
+> H9 truthfulness, S4a. Three claims decided:
+>
+> H12-b (S4 coverage < 2%) — **PASS.** Collapsed from 24.5%/10.9% to
+> 0.24%/0.24% (both distributions). Mechanism: infancy 3 blocks + rebirth-
+> settle 7 blocks = 10 blocks exactly. Zero persistence triggers fired at
+> steady state in 4096 blocks. The grammar works: K-consecutive filter
+> kills the noise floor completely.
+>
+> H13 (S1 noise floor < 0.5%) — **PASS.** Collapsed from 12.4% to 0.073%
+> (both distributions). Pure infancy (t=0,1,2 = 3 blocks). No persistence
+> trigger fired on stationary data. The arithmetic on record was right:
+> 1.8%³ ≈ 6×10⁻⁶ per block is undetectable in 4096 blocks.
+>
+> H14 (sensitivity = 100%) — **FALSIFIED** (both distributions). S4: 3/3
+> = 100% ✓ (infancy covers the t=0 miss from the closing audit). S3↑: N/A
+> (all excluded — strangers + settle). S3↓: 0/2 = 0% — blocks t=2048 and
+> t=2049 are non-stranger, non-settle, and NOT flagged. The persistence gate
+> requires K=3 consecutive blocks, but the REGIME rebirth fires at exactly
+> the K-th block (t=2050), consuming the third count before the persistence
+> trigger can fire. The gate's grammar — "K observations to build a case" —
+> and the regime's grammar share the same K, creating a structural blind spot
+> of exactly K−1=2 blocks at every step-DOWN transition. The watchman cannot
+> sleep through nothing: it sleeps through the two blocks before it wakes.
+>
+> **Series closes here.** H14 FALSIFIED sends the MID-RETURN register to
+> Architecture Note 02 §2 (funerals and costs) with its measured numbers.
+> The follow-up permission does not renew. Deliverable: Architecture Note 02.
+>
+> **Post-series gap analysis (2026-07-11, exploratory — no verdict).** After
+> closing, the H14 gap was measured, not reopened. The two missed blocks
+> (t=2048, t=2049 on S3↓) were never invisible to the machine: the regime
+> counter itself held the evidence — counter=1 at t=2048, counter=2 at
+> t=2049. The deviation was already counted; the MID-RETURN register simply
+> never read the counter. The simple road — raise MID-RETURN on any
+> non-stranger block whose regime counter is nonzero — was measured against
+> the sworn exp007b data (offline counter reconstruction matched every
+> REGIME rebirth exactly): stationary + drift cost = 0 blocks in 8192
+> (the counter runs on D≈2.0 shells, a far deeper tail than the noise
+> threshold ≈0.75); S3↓ hypothetical sensitivity 2/2 = 100%, both
+> distributions; S4 unchanged at 100%; hypothetical coverage would still
+> sit at 0.073% (S1) and 0.244% (S4), far inside the frozen bounds. The
+> three-state Watchman alternative is dominated: at p=1 it reopens the
+> 1.8% floor H13 closed; at p=2 it shrinks the gap to one block but does
+> not close it, and it adds a state machine. The H14 falsification was a
+> wiring gap, not a grammar failure — the watchman was awake; nobody read
+> his ledger. This analysis earns no verdict. The series remains CLOSED.
+> If the counter-visible trigger is ever to be sworn, it requires a new
+> pre-registration outside this series, judged fresh.
+>
+> **Amendment (2026-07-16, gap-fill on committing Architecture Note 02).**
+> Note 02 (the series synthesis, dated 2026-07-12) was found staged and
+> committed to docs/architecture-note-02-synthesis.md. Checking its §2
+> ("the funerals, by name and date") against this file's amendment trail
+> found the three-registers line already present and consistent (compare
+> Note 02 §1 item 8 to the "after exp002–exp004" amendment above — near-
+> verbatim), but three funerals that Note 02 §2 records were never entered
+> here, because no amendment was written after exp005 or exp006
+> specifically — only after exp002–004, exp007, the closing audit,
+> exp007b, and the gap analysis. Entered now, by name, per Note 02 §2:
+>
+> **The theta threshold.** Retired exp005→exp006 in favor of the formula
+> clock: confidence windows computed from validated mechanism truth, not
+> from a swept multiplier.
+>
+> **The S4c threshold (1.20×).** Chased in exp003 (1.52), exp004 (1.67),
+> satisfied in exp006 (1.024) with the cold-start healed — then retired to
+> a reported number per its own final-attempt clause. It rests having been
+> met.
+>
+> **The 10×-raw-oracle honesty family.** Retired exp006 by earned
+> METRIC-DEFECT: any oracle anchored to block_max × φ^k exhibits
+> exact-shell alignment artifacts; the guarded oracle failed its own
+> criterion against the raw oracle at 3.58%. When the reference cannot
+> pass the test, the test never measured the mechanism.
+>
+> These three are historical record only — no verdict changes, nothing
+> reopens. Note 02 §2 remains the fuller, dated account; this entry exists
+> so this file's amendment trail does not silently omit funerals its own
+> synthesis document already names.

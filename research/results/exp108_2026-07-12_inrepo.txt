@@ -1,0 +1,42 @@
+exp108 — Independent In-Repo Reproduction
+================================================================================
+Environment: sklearn 1.7.2, numpy 2.2.6 (this repository, 2026-07-17).
+Original (external sandbox) environment: sklearn 1.8.0, numpy 2.4.4.
+Script: research/exp108_lossscale.py (byte-identical to staged/external artifact).
+
+Note: exp108 is a standalone script (manual numpy gradient computation, no
+exp10x imports). No module-level preamble from other experiments.
+
+Reproduction method: script invoked as a separate process TWICE (in
+addition to the script's own internal double run).
+Cross-invocation hash comparison:
+  invocation 1 internal:  HASH 48b189777f967720 48b189777f967720 True
+  invocation 2 internal:  HASH 48b189777f967720 48b189777f967720 True
+  invocation 1 vs invocation 2 (full stdout): IDENTICAL
+
+Own-environment double-run: PASS (bit-identical, as required).
+
+Comparison to original external-sandbox hash:
+  original:  48b189777f967720
+  in-repo:   48b189777f967720
+  MATCH: EXACT (bit-identical across environments).
+
+Headline-number tolerance check (±0.5% absolute required; delta shown):
+  CLEAN/HEURISTIC acc:    0.9722 vs 0.9722  (exact)
+  CLEAN/HEURISTIC skips:  0      vs 0       (exact)
+  CLEAN/KEEPER acc:       0.9689 vs 0.9689  (exact)
+  CLEAN/KEEPER skips:     659    vs 659     (exact — 22.0% of 3000 steps)
+  SPIKED/HEURISTIC acc:   0.1001 vs 0.1001  (exact — incumbent collapse)
+  SPIKED/HEURISTIC skips: 4      vs 4       (exact)
+  SPIKED/KEEPER acc:      0.9700 vs 0.9700  (exact)
+  SPIKED/KEEPER skips:    679    vs 679     (exact — correctly skipped spikes)
+  KEEPER flush < HEURISTIC flush (SPIKED): 0.0000963 < 0.000534  (exact)
+
+Verdict summary:
+  P26 FALSIFIED: KEEPER skips 679, HEURISTIC skips 4 (ratio ~170x, reversed).
+  P27 PASS: KEEPER SPIKED acc 0.9700 >> HEURISTIC 0.1001; flush satisfied.
+  P28 PASS: CLEAN |0.9722-0.9689| = 0.33% <= 0.5%.
+  Open: CLEAN/KEEPER skip rate 659/3000 = 22.0% — G=1.0 calibration deficit
+  on gradient data; must be resolved before any training claim leaves this repo.
+
+VERDICT: reproduction PASS. No headline number moved. Nothing adjusted.

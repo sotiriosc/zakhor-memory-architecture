@@ -1,0 +1,46 @@
+exp109 — Independent In-Repo Reproduction
+================================================================================
+Environment: sklearn 1.7.2, numpy 2.2.6 (this repository, 2026-07-17).
+Original (external sandbox) environment: sklearn 1.8.0, numpy 2.4.4.
+Script: research/exp109_persistent.py (byte-identical to staged/external artifact).
+
+Note: script imports exp105_neighbors (which imports exp101_contact); both
+modules execute module-level code on import (exp101 JSON/HASH, exp105
+stream lines). exp109's own output follows.
+
+Reproduction method: script invoked as a separate process TWICE (in
+addition to the script's own internal double run).
+Cross-invocation hash comparison:
+  invocation 1 internal:  HASH bf0419e664c3a4f1 bf0419e664c3a4f1 True
+  invocation 2 internal:  HASH bf0419e664c3a4f1 bf0419e664c3a4f1 True
+  invocation 1 vs invocation 2 (exp109 output lines): IDENTICAL
+
+Own-environment double-run: PASS (bit-identical, as required).
+
+Comparison to original external-sandbox hash:
+  original:  bf0419e664c3a4f1
+  in-repo:   bf0419e664c3a4f1
+  MATCH: EXACT (bit-identical across environments).
+
+Headline-number tolerance check (±0.5% absolute required; delta shown):
+  PERSISTENT/LOCALMAX acc:  0.2102 vs 0.2102  (exact)
+  PERSISTENT/KEEPER acc:    0.8154 vs 0.8154  (exact)
+  PERSISTENT gap (K-LM):    +60.5% vs +60.5%  (exact — P29 FALSIFIED)
+  PERSISTENT strangers:     11456  vs 11456   (exact)
+  PERSISTENT regime_events: [0,0,0] vs [0,0,0] (exact)
+  PERSISTENT G:             [1.0,1.0,1.0] vs [1.0,1.0,1.0] (exact)
+  DENSE/LOCALMAX acc:       0.3715 vs 0.3715  (exact)
+  DENSE/KEEPER acc:         0.9327 vs 0.9327  (exact)
+  DENSE gap:                +56.1% vs +56.1%  (exact)
+  DENSE strangers:          2967   vs 2967    (exact)
+  DENSE regime_events:      [0,0,0] vs [0,0,0] (exact)
+
+Verdict summary:
+  P29 FALSIFIED: PERSISTENT gap = +60.5%, not <=+1.0%. The external warning's
+  predicted mechanism (state adapts, ceiling rises, strangers stop firing) did
+  not occur. G=1.0 keeps all hot-channel blocks as perpetual strangers; the
+  fallback ceiling update (using ceiling when all block elements are strangers)
+  keeps d≈0, so the regime counter never accumulates and the state never reseats.
+  The warning falls; the gap holds.
+
+VERDICT: reproduction PASS. No headline number moved. Nothing adjusted.

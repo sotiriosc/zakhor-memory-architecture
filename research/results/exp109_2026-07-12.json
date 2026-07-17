@@ -1,0 +1,27 @@
+{
+ "_provenance": {
+  "executed_externally_by": "Claude (Anthropic), external sandbox",
+  "execution_date": "2026-07-12",
+  "environment": "sklearn 1.8.0, numpy 2.4.4",
+  "original_double_run_hash": "bf0419e664c3a4f1",
+  "note": "Original artifact data below (all keys except this one) preserved verbatim from docs/Exp109-results.json. Script ported to research/exp109_persistent.py (byte-identical). Independently re-executed in this repository; see research/results/exp109_2026-07-12_inrepo.txt. exp109 imports exp105_neighbors (which imports exp101_contact); those modules execute module-level code on import."
+ },
+ "PERSISTENT/LOCALMAX": {
+  "acc": 0.21023359288097887
+ },
+ "PERSISTENT/KEEPER": {
+  "acc": 0.8153503893214683,
+  "strangers": 11456,
+  "regime_events": [0, 0, 0],
+  "G": [1.0, 1.0, 1.0]
+ },
+ "DENSE/LOCALMAX": {
+  "acc": 0.371523915461624
+ },
+ "DENSE/KEEPER": {
+  "acc": 0.9327030033370411,
+  "strangers": 2967,
+  "regime_events": [0, 0, 0],
+  "G": [1.0, 1.0, 1.0]
+ }
+}

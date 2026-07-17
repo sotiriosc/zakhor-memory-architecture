@@ -1,0 +1,37 @@
+{
+ "_provenance": {
+  "executed_externally_by": "Claude (Anthropic), external sandbox",
+  "execution_date": "2026-07-12",
+  "environment": "sklearn 1.8.0, numpy 2.4.4",
+  "original_double_run_hash": "48b189777f967720",
+  "note": "Original artifact data below (all keys except this one) preserved verbatim from docs/Exp-108-results.json. Script ported to research/exp108_lossscale.py (byte-identical). Independently re-executed in this repository; see research/results/exp108_2026-07-12_inrepo.txt. exp108 is a standalone training experiment (manual numpy gradient computation); does not import exp10x chain."
+ },
+ "CLEAN/HEURISTIC": {
+  "acc": 0.9721913236929922,
+  "skips": 0,
+  "flush_mean": 0.0003166476779513887,
+  "scale_final": 32768.0,
+  "scale_min": 1024.0
+ },
+ "CLEAN/KEEPER": {
+  "acc": 0.9688542825361512,
+  "skips": 659,
+  "flush_mean": 0.00010771666533176682,
+  "scale_final": 782425.6332646806,
+  "scale_min": 57440.24552266113
+ },
+ "SPIKED/HEURISTIC": {
+  "acc": 0.10011123470522804,
+  "skips": 4,
+  "flush_mean": 0.0005336379495577437,
+  "scale_final": 512.0,
+  "scale_min": 64.0
+ },
+ "SPIKED/KEEPER": {
+  "acc": 0.9699666295884316,
+  "skips": 679,
+  "flush_mean": 9.626777251184816e-05,
+  "scale_final": 608504.3424374287,
+  "scale_min": 57440.24552266113
+ }
+}

@@ -9,7 +9,7 @@
 
 **Status:** Draft v0.1 · **Date:** 2026-07-16
 
-This note is written from the ported exp101–107 ("Contact") artifacts only.
+This note is written from the ported exp101–109 ("Contact") artifacts only.
 No new claims are made beyond what those pre-registrations, scripts, and
 results establish. The exp00x series (exp001–exp007b) is CLOSED; its
 deliverable, [Architecture Note 02](architecture-note-02-synthesis.md),
@@ -196,9 +196,135 @@ hash:
 | exp105 | `bc5f35d17500737e` | `bc5f35d17500737e` | exact |
 | exp106 | `d1ccd001dfdf497b` | `d1ccd001dfdf497b` | exact |
 | exp107 | `f17c22c36ee9df13` | `f17c22c36ee9df13` | exact |
+| exp108 | `48b189777f967720` | `48b189777f967720` | exact |
+| exp109 | `bf0419e664c3a4f1` | `bf0419e664c3a4f1` | exact |
 
 No threshold, number, or verdict was altered in porting. All decisions —
 what to port, how to verify, what this note claims — are the steward's.
+
+---
+
+## 9. exp108/109 — The Loss Scale and the Warning
+
+Four findings: one incumbent collapse, one falsified prediction of ours,
+one falsified external warning, and an open calibration deficit that
+blocks any training claim from leaving this repository.
+
+### exp108 — Keeper-controlled dynamic loss scaling
+
+**The incumbent collapse (SPIKED/HEURISTIC).** The industry-standard
+dynamic loss-scale heuristic — double every 500 clean steps, halve on
+overflow — trained to **10.01% accuracy** on the SPIKED stream (chance
+level, 10 classes). It detected only 4 overflows across all 30 spike
+events (every 100th of 3000 steps). The remaining 26 spike gradient
+updates, scaled ×2^8, passed through the FP16 path unchecked: each
+applied a gradient update 256× larger than the loss warranted, corrupting
+the weights irreversibly within the first spike encounters. The heuristic
+could not detect the spikes because its scale was calibrated for clean
+gradient magnitudes and the spikes, while enormous, fell within FP16
+range at the operating scale. The heuristic has no mechanism to recognise
+an outlier gradient as distinct from a valid large gradient — it only
+sees overflow, not anomaly.
+
+**P26 FALSIFIED — the direction of our prediction was backwards.**
+P26 predicted KEEPER skips ≤ 1/3 as many steps as HEURISTIC on SPIKED.
+Measured: KEEPER skips **679**, HEURISTIC skips **4**. KEEPER skips
+~170× *more* steps, not fewer. The prediction conflated "correct
+behavior" with "fewer skips." KEEPER is correct to skip: it tracks
+log₂(max|g|) per step, identifies the spike gradient (≫ state + G) as a
+stranger, skips the step without updating the scale or the state, and
+continues. Each of the 30 spikes is correctly classified and skipped (679
+total includes the calibration-period skip rate as well). HEURISTIC,
+lacking anomaly detection, lets 26 spikes through. The accuracy
+comparison settles what "correct" means: KEEPER SPIKED acc = **0.9700**,
+HEURISTIC SPIKED acc = **0.1001**.
+
+**P27 PASS.** KEEPER SPIKED accuracy (0.9700) exceeds HEURISTIC (0.1001)
+by 86.9 points — P27's accuracy condition satisfied. KEEPER mean flushed
+fraction (0.0000963) < HEURISTIC (0.000534) — P27's flush condition
+satisfied. The halving aftermath is real: each overflow-triggered halve
+pushes the scale low enough to flush small gradients in subsequent steps,
+compounding the training damage. KEEPER's scale, set continuously from
+the tracked state, never halves.
+
+**P28 PASS.** On CLEAN, |KEEPER − HEURISTIC| = |0.9689 − 0.9722| =
+**0.33%** ≤ 0.5%. No accuracy harm on the clean stream.
+
+**The 22% skip rate — open calibration deficit, blocking training
+claims.** On CLEAN, KEEPER issues **659 step skips out of 3000** (22.0%)
+with zero spikes present. HEURISTIC: 0 skips. Every one of KEEPER's 659
+CLEAN skips is a false-positive stranger declaration: normal step-to-step
+variation in max|g| exceeds the G=1.0 guard band (2× in linear space,
+1 log₂ unit) often enough to classify routine gradient variance as an
+anomaly. This is the same G=1.0 calibration failure that produced 310
+false stranger declarations in exp105 and drove the P17 falsification in
+exp106; on gradient data the natural variance is larger than on activation
+data, and the failure rate is correspondingly higher.
+
+Skipping 22% of clean training steps wastes compute and slows convergence
+— the model still reaches 0.9689 on this small task, but this cannot be
+extrapolated to larger training runs where calibration adequacy is not
+guaranteed. **No training-domain claim leaves this repository until G
+calibration on gradient data is pre-registered and tested.** The required
+fix is identified: calibrate G from the actual gradient-magnitude
+distribution during a warm-up phase, allowing it to grow well beyond 1.0
+when the gradient variance requires it — the same fix that P17 (exp105)
+implied for activation data.
+
+### exp109 — The persistent-outlier warning falls
+
+**P29 FALSIFIED — the external warning was wrong.** P29 was explicitly
+registered "siding with the external warning": on PERSISTENT stream (4
+fixed hot channels per hidden layer, ×2^7 = 128× on every sample), the
+predicted gap was KEEPER − LOCALMAX ≤ +1.0%. The predicted mechanism:
+the tracked state would learn the hot channels, the ceiling would rise to
+cover them, strangers would stop firing, and the keeper would converge to
+LOCALMAX-equivalence. Measured gap: **+60.5%** (KEEPER 0.8154 vs
+LOCALMAX 0.2102).
+
+The warning's mechanism did not occur, for a structural reason:
+strangers: **11456**, regime_events: **[0, 0, 0]**, G: **[1.0, 1.0,
+1.0]**. The hot channels (128× = 7 log₂ units above the tracked mean)
+are always classified as strangers under G=1.0 (threshold: 1 log₂ unit).
+When a stranger block's surviving elements are themselves all strangers
+(or absent), the tracker's fallback updates the state from the tracked
+ceiling — a value close to the current state — keeping d ≈ 0. The regime
+counter, which requires K=3 consecutive observations with |d| > G+1 = 2,
+never accumulates past zero. **The state never reseats. The ceiling never
+rises. The hot channels are perpetual strangers.**
+
+This is not a failure of the keeper — it is the keeper working correctly
+under the wrong model. The warning assumed adaptation; G=1.0 prevents
+adaptation by construction, which in this fault model means the hot
+channels are always excluded and the neighbors always protected. The
+result (+60.5%) exceeds exp105's DENSE gap (+53.9%).
+
+The DENSE rerun confirms continuity: DENSE gap = **+56.1%** (KEEPER
+0.9327 vs LOCALMAX 0.3715), 0 regime events — consistent with exp105's
+mechanism operating at a different seed.
+
+**The sharpened product thesis.** The pre-registration offered a
+conditional: "if P29 passes, record that this is a fault-tolerance play,
+not a general quantization play." P29 FALSIFIED does not trigger that
+condition. But the data sharpens the thesis in a different direction: the
+keeper's advantage is largest precisely where activation-magnitude
+outliers are most severe and most persistent, because the G=1.0 stranger
+gate excludes them completely in both cases. On PERSISTENT, every hot
+block across all 3594 samples in both hidden layers fires a stranger
+declaration; the keeper never adapts, the neighbors are always protected,
+and the per-channel scale-learning the warning assumed is exactly what
+the design prevents. The product thesis stands with a narrower description
+of its jurisdiction: outlier-driven activation faults, transient or
+persistent, where the magnitude anomaly is detectable under the calibrated
+guard band.
+
+**Series provenance for exp108/109.** Both experiments pre-registered,
+implemented, and executed externally (Claude, Anthropic sandbox,
+sklearn 1.8.0, numpy 2.4.4). Both scripts ported byte-identical to
+`research/`. Reproduced twice independently: exp108 hash
+`48b189777f967720`, exp109 hash `bf0419e664c3a4f1`, both matching
+original exactly. See `research/results/exp108_2026-07-12_inrepo.txt`
+and `research/results/exp109_2026-07-12_inrepo.txt`.
 
 ---
 
